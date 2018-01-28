@@ -1,0 +1,4 @@
+target/
+output.html
+spring-boot-beans.txt
+*.ftl

@@ -8,10 +8,9 @@ Stand 7.1.
 - spring.ftl wird live gefunden, aber im FreemarkerTest nicht
   - interessant zu wissen wäre, ob man der Freemarker-Config mehrere Pfade für Templates übergeben kann, und wenn ja, in welchem Format
   - ist aber nicht so relevant
-- Jetzt muss ich statt ModelAndView mit Model arbeiten
+  - Jetzt muss ich statt ModelAndView mit Model arbeiten
   - siehe https://hellokoding.com
   - ModelAndView ist nur für get quasi readonly
-  
   
 Vorgehen
 - initForm macht man wohl per GET, siehe auch Spring MVC Blueprints    

@@ -3,6 +3,9 @@ package org.deepfrequencies.sudoku.ui;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +21,11 @@ public class SudokuController {
     }
 
     @RequestMapping(method=RequestMethod.POST)
-    public ModelAndView post(ModelAndView modelAndView) {
-    	System.out.println(modelAndView.toString());
-    	return new ModelAndView("sudoku", SudokuResponseBuilder.getBuilder().createSudokuUI());
+    public ModelAndView post(@ModelAttribute("sudokuForm") SudokuForm sudokuForm, ModelMap model, BindingResult result) {
+    	System.out.println(sudokuForm.toString());
+    	model.addAttribute(sudokuForm);
+    	//return "sudoku";
+    	return new ModelAndView("sudoku", model);//SudokuResponseBuilder.getBuilder().createSudokuUI());
     }
 
 //    @RequestMapping("/sudoku-1")

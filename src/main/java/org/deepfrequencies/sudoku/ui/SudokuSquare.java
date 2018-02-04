@@ -1,5 +1,10 @@
 package org.deepfrequencies.sudoku.ui;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class SudokuSquare {
 	String a1;
 	String a2;
@@ -10,6 +15,8 @@ public class SudokuSquare {
 	String c1;
 	String c2;
 	String c3;
+	
+	Map<String, HashMap<String, String>> options = new HashMap<String,HashMap<String,String>>();
 
 	public String getA1() {
 		return a1;
@@ -65,4 +72,26 @@ public class SudokuSquare {
 	public void setC3(String c3) {
 		this.c3 = c3;
 	}
-}
+	
+
+	
+	
+	public Map<String, HashMap<String, String>> getOptions() {
+		return options;
+	}
+	public void setOptions(Map<String, HashMap<String, String>> options) {
+		this.options = options;
+	}
+	public void addOption(String key, String[] values) {
+		HashMap<String, String> valueMap = new HashMap<String, String>();
+		for(String value : values) {
+			valueMap.put(value, value);
+		}
+		options.put(key, valueMap);
+	}
+	
+	@Override
+	public String toString() {
+		return this.a1 + b1 + c1 + "\n" + a2 + b2 + c2 + "\n" + a3 + b3 + c3;
+	}
+	}

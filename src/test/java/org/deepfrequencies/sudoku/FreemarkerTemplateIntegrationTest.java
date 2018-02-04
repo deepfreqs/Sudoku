@@ -31,7 +31,7 @@ public class FreemarkerTemplateIntegrationTest {
 
 	    // Write output to the console
 	    Writer consoleWriter = new OutputStreamWriter(System.out);
-	    template.process(input, consoleWriter);
+	    //template.process(input, consoleWriter);
 	}
 
 }

@@ -7,14 +7,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HelloController {
-//    @GetMapping("/")
-//    public String index() {
-//        return "index";
-//    }
 
-    @GetMapping("/hello")
-    public String hello(Model model, @RequestParam(value="name", required=false, defaultValue=" Mad World") String name) {
-        model.addAttribute("name", name);
-        return "hello";
-    }
+	@GetMapping("/")
+	public String index() {
+		return "redirect:/sudoku";
+	}
+
+	@GetMapping("/hello")
+	public String hello(Model model,
+			@RequestParam(value = "name", required = false, defaultValue = " Mad World") String name) {
+		model.addAttribute("name", name);
+		return "hello";
+	}
 }

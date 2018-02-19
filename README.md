@@ -1,6 +1,23 @@
 # Sudoku
 Just another Sudoku solver project playground
 
+19.02.2018
+- next steps
+  - leeres Sudoku
+  - lade eines aus einem JSON
+  
+  
+11.02.2018
+interaction flow
+- Start: leeres Sudoku, 2 Optionen: selber eintragen, vorhandenes laden
+	- redirect index auf sudoku
+	- Jedes Feld hat entweder ein input mit 1 Zahl drin, oder n Radiobuttons mit den möglichen Zahlen für dieses Feld.
+- in den Feldern mit den Radios wird einer ausgewählt, es können mehrere Felder gleichzeitig geändert werden.
+	- Eine Zahl kann immer geändert werden (am Anfang ignorieren)
+- submit
+- auf dem Server
+	- werden die Optionen für jedes Feld neu berechnet
+
 28.01.2018
 - an github angebunden
 

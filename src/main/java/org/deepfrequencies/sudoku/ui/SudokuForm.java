@@ -16,7 +16,7 @@ public class SudokuForm {
     			SudokuSquare square = new SudokuSquare();
     			square.setA1(String.valueOf(i*j*1));
     			//square.setB1(String.valueOf(i*j*2));
-    			square.addOption("B1", new String[] {"2", "4"});
+    			square.addOption("B1", new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9"});
     			square.setC1(String.valueOf(i*j*3));
     			square.setA2(String.valueOf(i*j*4));
     			square.setB2(String.valueOf(i*j*5));

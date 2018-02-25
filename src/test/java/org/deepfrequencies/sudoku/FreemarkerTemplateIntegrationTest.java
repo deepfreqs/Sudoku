@@ -27,7 +27,7 @@ public class FreemarkerTemplateIntegrationTest {
 		//Configuration config = freeMarkerConfig.createConfiguration();		
 		//Template template = config.getTemplate("sudoku.ftl");
 		
-	    Map<String, Object> input = SudokuResponseBuilder.getBuilder().createSudokuUI();
+	    Map<String, Object> input = SudokuResponseBuilder.getBuilder().createModelMap();
 
 	    // Write output to the console
 	    Writer consoleWriter = new OutputStreamWriter(System.out);

@@ -46,7 +46,8 @@ Spring Binding mit Freemarker
 - Anwendung von binding im Freemarker Template: https://stackoverflow.com/questions/28770050/binding-form-freemarker-spring-mvc
 - echtes Beispiel mit Spring in Freemarker-Syntax: https://gist.github.com/jkuipers/5658672
 
-
+Request Mapping
+  - https://www.journaldev.com/3358/spring-requestmapping-requestparam-pathvariable-example
 
 Diverse Snippets
       

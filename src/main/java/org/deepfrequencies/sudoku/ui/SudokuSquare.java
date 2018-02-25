@@ -73,6 +73,17 @@ public class SudokuSquare {
 		this.c3 = c3;
 	}
 	
+	public void removeNullValues() {
+		a1 = " ".equals(a1)?null:a1;
+		a2 = " ".equals(a2)?null:a2;
+		a3 = " ".equals(a3)?null:a3;
+		b1 = " ".equals(b1)?null:b1;
+		b2 = " ".equals(b2)?null:b2;
+		b3 = " ".equals(b3)?null:b3;
+		c1 = " ".equals(c1)?null:c1;
+		c2 = " ".equals(c2)?null:c2;
+		c3 = " ".equals(c3)?null:c3;
+	}
 
 	
 	
@@ -92,6 +103,6 @@ public class SudokuSquare {
 	
 	@Override
 	public String toString() {
-		return this.a1 + b1 + c1 + "\n" + a2 + b2 + c2 + "\n" + a3 + b3 + c3;
+		return this.a1 + "." + b1 + "." +  c1 + "\n" + a2 + "." + b2 + "." + c2 + "\n" + a3 + "." + b3 + "." + c3;
 	}
 	}

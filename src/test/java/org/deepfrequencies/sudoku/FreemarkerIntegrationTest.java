@@ -45,7 +45,7 @@ public class FreemarkerIntegrationTest extends TestCase {
 
     // 2.1. Prepare the template input:
 
-    Map<String, Object> input = SudokuResponseBuilder.getBuilder().createSudokuUI();
+    Map<String, Object> input = SudokuResponseBuilder.getBuilder().createModelMap();
 
     // 2.2. Get the template
 

@@ -16,19 +16,21 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/sudoku")
 public class SudokuController {
         
-    @RequestMapping(value = "new", method=RequestMethod.GET)
-    public ModelAndView get(ModelAndView modelAndView) {
-    	return new ModelAndView("sudoku", SudokuResponseBuilder.getBuilder().createSudokuUI());
-    }
 
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView getNextStep(@RequestParam(value = "action", required = false, defaultValue = "new") String action,
     		@ModelAttribute("sudokuForm") SudokuForm sudokuForm, ModelMap model, BindingResult result) {
     	System.out.println("action =" + action);
     	System.out.println(sudokuForm.toString());
+    	if ("new".equals(action)) {
+    		sudokuForm = SudokuResponseBuilder.getBuilder().newSudokuForm();
+    	}
+    	if ("next".equals(action)) {
+    		sudokuForm = SudokuResponseBuilder.getBuilder().calculateNextStep(sudokuForm);
+    	}
+    		
     	model.addAttribute(sudokuForm);
-    	//return "sudoku";
-    	return new ModelAndView("sudoku", model);//SudokuResponseBuilder.getBuilder().createSudokuUI());
+    	return new ModelAndView("sudoku", model);
     }
 
 

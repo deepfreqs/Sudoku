@@ -24,7 +24,7 @@
 		  float: left;
 		  width: 20%;
 		  height: 300px;
-		  background-color: #ffcc00;
+		  background-color: khaki;
 		}
 		#inhalt {
 		  float: left;
@@ -52,17 +52,32 @@
 
 		button.submit {
 			text-align:center;
-			margin: 20%;
-			width:12em;
+			margin:10%;
+			width:15em;
 			height:40px;
 		  background-color: SKYBLUE;
 		}
 		input.cell{
 			text-align:center;
-			width: 100%;
-			height: 100%;
-			background-color: SALMON;
+			width:80px;
+			height:80px;
+			background-color:DARKKHAKI;
 			font-size:50px;
+		}
+		textarea.cell{
+			text-align:center;
+			width:80px;
+			height:80px;
+			background-color:GREENYELLOW;
+			font-size:20px;
+			resize:vertical
+		}
+		input.numberlist
+			text-align:center;
+			width:81em;
+			height:100%;
+			background-color:GREENYELLOW;
+			font-size:20px;
 		}
 		input.formRadioButtons{
 		  border: 0px;
@@ -94,12 +109,18 @@
 	<@spring.bind "sudokuForm"/>
 	<form action="" method="GET">
 	<div id="links" style="text-align:center; margin: 0px auto">
-			<button class="submit" type="submit" name="action" value="next">Nächster Schritt</button>
-			<button class="submit" type="submit" name="action" value="new">Neues Spiel</button>
+			<button class="submit" type="submit" name="action" value="next">Next Step</button>
+			<button class="submit" type="submit" name="action" value="new">Reset all Fields</button>
+			<button class="submit" type="submit" name="action" value="load">Load from Number List</button>
+			<@spring.bind path="sudokuForm.importSudoku"/>			
+			<input class="numberlist" type="text" name="${spring.status.expression}" value="${spring.status.value}" />
+			<div>
+			Enter a string of 81 numbers<br> (you can express blanks as 0, *, or '.')
+			</div>
 	</div>
 	
 	<div id="inhalt">
-		<table style="border:1px;background-color: DARKKHAKI;width:100%;">
+		<table style="border:1px;background-color: DARKKHAKI;width:780px;">
 			<#assign seq = ['11', '12', '13', '21', '22', '23', '31', '32', '33']>
 			<#list seq?chunk(3) as row>
 			<tr> <!-- Zeile mit 3 Zeilen von Quadraten -->
@@ -109,28 +130,18 @@
 						<tr>
 							<td class="cell">
 								<@spring.bind path="sudokuForm.sudokuSquares[${cell}].a1"/>
-								<#if spring.status.value??>
+								<#if spring.status.value?length &lt; 2>
 									<input class="cell" type="text" name="${spring.status.expression}" value="${spring.status.value}" />
 								<#else>
-									<@spring.bind path="sudokuForm.sudokuSquares[${cell}].options"/>
-									<#list spring.status.value as key, value>
-										<#if key = "A1">
-											<@spring.formSingleSelect "sudokuForm.sudokuSquares[${cell}].a1", value, 'class="formSingleSelect"'/>
-										</#if>
-					  			</#list>
+									<textarea rows="3" cols="3" name="${spring.status.expression}" value="${spring.status.value}" />
 								</#if>
 							</td>
 							<td class="cell">
 								<@spring.bind path="sudokuForm.sudokuSquares[${cell}].b1"/>
-								<#if spring.status.value??>
+								<#if spring.status.value?length &lt; 2>
 									<input class="cell" type="text" name="${spring.status.expression}" value="${spring.status.value}" />
 								<#else>
-									<@spring.bind path="sudokuForm.sudokuSquares[${cell}].options"/>
-									<#list spring.status.value as key, value>
-										<#if key = "B1">
-											<@spring.formSingleSelect "sudokuForm.sudokuSquares[${cell}].b1", value, 'class="formSingleSelect"'/>
-										</#if>
-					  			</#list>
+									<@spring.formTextarea "sudokuForm.sudokuSquares[${cell}].b1", 'class=cell'/>
 								</#if>
 							</td>
 							<td class="cell">

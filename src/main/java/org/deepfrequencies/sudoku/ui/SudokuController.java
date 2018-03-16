@@ -28,6 +28,9 @@ public class SudokuController {
     	if ("next".equals(action)) {
     		sudokuForm = SudokuResponseBuilder.getBuilder().calculateNextStep(sudokuForm);
     	}
+    	if ("load".equals(action)) {
+    		sudokuForm = SudokuResponseBuilder.getBuilder().loadFromString(sudokuForm.getImportSudoku());
+    	}
     		
     	model.addAttribute(sudokuForm);
     	return new ModelAndView("sudoku", model);

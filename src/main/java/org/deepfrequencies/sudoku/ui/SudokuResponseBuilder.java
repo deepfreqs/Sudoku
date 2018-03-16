@@ -11,7 +11,7 @@ public class SudokuResponseBuilder {
 	}
 	
 	public SudokuForm newSudokuForm() {
-    	return new SudokuForm();
+    	return new SudokuForm("300401076602500040000006210500000180700010002021000007054300000090004608830109004");
 	}
 
 	public SudokuForm calculateNextStep(SudokuForm sudokuForm) {
@@ -22,6 +22,9 @@ public class SudokuResponseBuilder {
     	return sudokuForm.removeNullValues();
 	}
 
+	public SudokuForm loadFromString(String toLoad) {
+		return new SudokuForm(toLoad);
+	}
 	public Map<String,Object> createModelMap() {
     	HashMap<String,Object> variables = new HashMap<String,Object>();
     	variables.put("sudokuForm", new SudokuForm());

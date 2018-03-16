@@ -18,7 +18,9 @@
 		  width: 20%;
 		  height: 300px;
 		  background-color: khaki;
-			margin-right:10%;
+			margin-right:5%;
+			text-align:center; 
+			margin: 0px auto
 		}
 		#rechts {
 		  float: left;
@@ -28,8 +30,8 @@
 		}
 		#inhalt {
 		  float: left;
-		  width: 60%;
-		  margin: 10px 2%;
+		  width: 40%;
+		  margin: 1px;
 		  background-color: khaki;
 		}
 
@@ -41,8 +43,8 @@
 			height:600px;
 		}
 		td.cell {
-			width:80px;
-			height:80px;
+			width:72px;
+			height:72px;
 			border:1px solid blue;
 			overflow:hidden;
 			text-align-all:center;
@@ -59,32 +61,24 @@
 		}
 		input.cell{
 			text-align:center;
-			width:80px;
-			height:80px;
+			width:72px;
+			height:72px;
 			background-color:DARKKHAKI;
 			font-size:50px;
 		}
 		textarea.cell{
 			text-align:center;
-			width:80px;
-			height:80px;
+			width:70px;
+			height:100%;
 			background-color:GREENYELLOW;
-			font-size:20px;
-			resize:vertical
+			font-size:15px;
 		}
 		input.numberlist
 			text-align:center;
-			width:81em;
+			width:161em;
 			height:100%;
 			background-color:GREENYELLOW;
 			font-size:20px;
-		}
-		input.formRadioButtons{
-		  border: 0px;
-			height: 2em;
-			width: 100%;
-		  background-color: SKYBLUE;
-			font-size:5px;
 		}
 		select.formSingleSelect{
         overflow:hidden;
@@ -108,7 +102,7 @@
 	
 	<@spring.bind "sudokuForm"/>
 	<form action="" method="GET">
-	<div id="links" style="text-align:center; margin: 0px auto">
+	<div id="links" >
 			<button class="submit" type="submit" name="action" value="next">Next Step</button>
 			<button class="submit" type="submit" name="action" value="new">Reset all Fields</button>
 			<button class="submit" type="submit" name="action" value="load">Load from Number List</button>
@@ -120,7 +114,7 @@
 	</div>
 	
 	<div id="inhalt">
-		<table style="border:1px;background-color: DARKKHAKI;width:780px;">
+		<table style="border:1px;background-color: DARKKHAKI;width:750px;">
 			<#assign seq = ['11', '12', '13', '21', '22', '23', '31', '32', '33']>
 			<#list seq?chunk(3) as row>
 			<tr> <!-- Zeile mit 3 Zeilen von Quadraten -->
@@ -133,7 +127,7 @@
 								<#if spring.status.value?length &lt; 2>
 									<input class="cell" type="text" name="${spring.status.expression}" value="${spring.status.value}" />
 								<#else>
-									<textarea rows="3" cols="3" name="${spring.status.expression}" value="${spring.status.value}" />
+									<@spring.formTextarea "sudokuForm.sudokuSquares[${cell}].a1", 'class=cell'/>
 								</#if>
 							</td>
 							<td class="cell">
@@ -146,97 +140,62 @@
 							</td>
 							<td class="cell">
 								<@spring.bind path="sudokuForm.sudokuSquares[${cell}].c1"/>
-								<#if spring.status.value??>
+								<#if spring.status.value?length &lt; 2>
 									<input class="cell" type="text" name="${spring.status.expression}" value="${spring.status.value}" />
 								<#else>
-									<@spring.bind path="sudokuForm.sudokuSquares[${cell}].options"/>
-									<#list spring.status.value as key, value>
-										<#if key = "C1">
-											<@spring.formSingleSelect "sudokuForm.sudokuSquares[${cell}].c1", value, 'class="formSingleSelect"'/>
-										</#if>
-					  			</#list>
+									<@spring.formTextarea "sudokuForm.sudokuSquares[${cell}].c1", 'class=cell'/>
 								</#if>
 							</td>
 						</tr>
 						<tr>
 							<td class="cell">
 								<@spring.bind path="sudokuForm.sudokuSquares[${cell}].a2"/>
-								<#if spring.status.value??>
+								<#if spring.status.value?length &lt; 2>
 									<input class="cell" type="text" name="${spring.status.expression}" value="${spring.status.value}" />
 								<#else>
-									<@spring.bind path="sudokuForm.sudokuSquares[${cell}].options"/>
-									<#list spring.status.value as key, value>
-										<#if key = "A2">
-											<@spring.formSingleSelect "sudokuForm.sudokuSquares[${cell}].a2", value, 'class="formSingleSelect"'/>
-										</#if>
-					  			</#list>
+									<@spring.formTextarea "sudokuForm.sudokuSquares[${cell}].a2", 'class=cell'/>
 								</#if>
 							</td>
 							<td class="cell">
 								<@spring.bind path="sudokuForm.sudokuSquares[${cell}].b2"/>
-								<#if spring.status.value??>
+								<#if spring.status.value?length &lt; 2>
 									<input class="cell" type="text" name="${spring.status.expression}" value="${spring.status.value}" />
 								<#else>
-									<@spring.bind path="sudokuForm.sudokuSquares[${cell}].options"/>
-									<#list spring.status.value as key, value>
-										<#if key = "B2">
-											<@spring.formSingleSelect "sudokuForm.sudokuSquares[${cell}].b2", value, 'class="formSingleSelect"'/>
-										</#if>
-					  			</#list>
+									<@spring.formTextarea "sudokuForm.sudokuSquares[${cell}].b2", 'class=cell'/>
 								</#if>
 							</td>
 							<td class="cell">
 								<@spring.bind path="sudokuForm.sudokuSquares[${cell}].c2"/>
-								<#if spring.status.value??>
+								<#if spring.status.value?length &lt; 2>
 									<input class="cell" type="text" name="${spring.status.expression}" value="${spring.status.value}" />
 								<#else>
-									<@spring.bind path="sudokuForm.sudokuSquares[${cell}].options"/>
-									<#list spring.status.value as key, value>
-										<#if key = "C2">
-											<@spring.formSingleSelect "sudokuForm.sudokuSquares[${cell}].c2", value, 'class="formSingleSelect"'/>
-										</#if>
-					  			</#list>
+									<@spring.formTextarea "sudokuForm.sudokuSquares[${cell}].c2", 'class=cell'/>
 								</#if>
 							</td>
 						</tr>
 						<tr>
 							<td class="cell">
 								<@spring.bind path="sudokuForm.sudokuSquares[${cell}].a3"/>
-								<#if spring.status.value??>
+								<#if spring.status.value?length &lt; 2>
 									<input class="cell" type="text" name="${spring.status.expression}" value="${spring.status.value}" />
 								<#else>
-									<@spring.bind path="sudokuForm.sudokuSquares[${cell}].options"/>
-									<#list spring.status.value as key, value>
-										<#if key = "A3">
-											<@spring.formSingleSelect "sudokuForm.sudokuSquares[${cell}].a3", value, 'class="formSingleSelect"'/>
-										</#if>
-					  			</#list>
+									<@spring.formTextarea "sudokuForm.sudokuSquares[${cell}].a3", 'class=cell'/>
 								</#if>
 							</td>
 							<td class="cell">
 								<@spring.bind path="sudokuForm.sudokuSquares[${cell}].b3"/>
-								<#if spring.status.value??>
+								<#if spring.status.value?length &lt; 2>
 									<input class="cell" type="text" name="${spring.status.expression}" value="${spring.status.value}" />
 								<#else>
-									<@spring.bind path="sudokuForm.sudokuSquares[${cell}].options"/>
-									<#list spring.status.value as key, value>
-										<#if key = "B3">
-											<@spring.formSingleSelect "sudokuForm.sudokuSquares[${cell}].b3", value, 'class="formSingleSelect"'/>
-										</#if>
-					  			</#list>
+									<@spring.formTextarea "sudokuForm.sudokuSquares[${cell}].b3", 'class=cell'/>
 								</#if>
 							</td>
 							<td class="cell">
 								<@spring.bind path="sudokuForm.sudokuSquares[${cell}].c3"/>
-								<#if spring.status.value??>
+								<#if spring.status.value?length &lt; 2>
 									<input class="cell" type="text" name="${spring.status.expression}" value="${spring.status.value}" />
 								<#else>
-									<@spring.bind path="sudokuForm.sudokuSquares[${cell}].options"/>
-									<#list spring.status.value as key, value>
-										<#if key = "C3">
-											<@spring.formSingleSelect "sudokuForm.sudokuSquares[${cell}].c3", value, 'class="formSingleSelect"'/>
-										</#if>
-					  			</#list>
+									<@spring.formTextarea "sudokuForm.sudokuSquares[${cell}].c3", 'class=cell'/>
 								</#if>
 							</td>
 						</tr>

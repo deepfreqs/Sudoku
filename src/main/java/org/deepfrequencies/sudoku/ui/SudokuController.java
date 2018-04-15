@@ -1,8 +1,9 @@
 package org.deepfrequencies.sudoku.ui;
 
 import java.util.HashMap;
-import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,13 +16,16 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 @RequestMapping("/sudoku")
 public class SudokuController {
-        
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView getNextStep(@RequestParam(value = "action", required = false, defaultValue = "new") String action,
     		@ModelAttribute("sudokuForm") SudokuForm sudokuForm, ModelMap model, BindingResult result) {
-    	System.out.println("action =" + action);
-    	System.out.println(sudokuForm.toString());
+    	if (logger.isInfoEnabled()) {
+        	logger.info("action = {0}", action);
+        	logger.info(sudokuForm.toString());
+    	}
     	if ("new".equals(action)) {
     		sudokuForm = SudokuResponseBuilder.getBuilder().newSudokuForm();
     	}
@@ -39,7 +43,7 @@ public class SudokuController {
 
     //    @RequestMapping("/sudoku-1")
     public ModelAndView controll() {
-    	HashMap<String,String> variables = new HashMap<String,String>();
+    	HashMap<String,String> variables = new HashMap<>();
     	variables.put("a1", "7");
     	variables.put("b1", "");
     	variables.put("c1", "3");

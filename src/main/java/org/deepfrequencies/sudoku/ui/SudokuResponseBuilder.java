@@ -3,9 +3,15 @@ package org.deepfrequencies.sudoku.ui;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.deepfrequencies.sudoku.calculators.SimpleNextStepStrategy;
+import org.deepfrequencies.sudoku.domain.SudokuPlayground;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class SudokuResponseBuilder {
-	private SudokuForm sudokuForm;
 	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	public static SudokuResponseBuilder getBuilder() {
 		return new SudokuResponseBuilder();
 	}
@@ -15,7 +21,10 @@ public class SudokuResponseBuilder {
 	}
 
 	public SudokuForm calculateNextStep(SudokuForm sudokuForm) {
-    	return sudokuForm.removeNullValues();
+		SudokuPlayground ground = new SudokuPlayground(sudokuForm.exportToString());
+		SimpleNextStepStrategy.applyStrategy(ground);
+		sudokuForm = new SudokuForm(ground);
+    	return sudokuForm;//.removeNullValues(); //do i still need this?
 	}
 
 	public SudokuForm removeNullValues(SudokuForm sudokuForm) {
@@ -26,9 +35,11 @@ public class SudokuResponseBuilder {
 		return new SudokuForm(toLoad);
 	}
 	public Map<String,Object> createModelMap() {
-    	HashMap<String,Object> variables = new HashMap<String,Object>();
+    	HashMap<String,Object> variables = new HashMap<>();
     	variables.put("sudokuForm", new SudokuForm());
-    	System.out.println(variables.toString());
+    	if (logger.isInfoEnabled()) {
+        	logger.info(variables.toString());
+    	}
     	return variables;
 	}
 

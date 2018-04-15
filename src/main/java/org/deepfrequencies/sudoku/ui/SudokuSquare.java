@@ -1,8 +1,6 @@
 package org.deepfrequencies.sudoku.ui;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SudokuSquare {
@@ -16,6 +14,9 @@ public class SudokuSquare {
 	String c2;
 	String c3;
 	
+	Map<String,Boolean> nulls = new HashMap<>();
+
+	private static final String INITPATTERN = "1 2 3\n4 5 6\n7 8 9";
 	SudokuSquare (){
 		
 	}
@@ -36,55 +37,64 @@ public class SudokuSquare {
 		return a1;
 	}
 	public void setA1(String a1) {
-		this.a1 = isNullValue(a1)?"12345":a1;
+		this.a1 = isNullValue(a1) ? INITPATTERN: a1;
+		nulls.put("a1",  isNullValue(a1));
 	}
 	public String getA2() {
 		return a2;
 	}
 	public void setA2(String a2) {
-		this.a2 = isNullValue(a2)?"12345":a2;
+		this.a2 = isNullValue(a2) ? INITPATTERN: a2;
+		nulls.put("a2",  isNullValue(a2));
 	}
 	public String getA3() {
 		return a3;
 	}
 	public void setA3(String a3) {
-		this.a3 = isNullValue(a3)?"12345":a3;
+		this.a3 = isNullValue(a3)? INITPATTERN: a3;
+		nulls.put("a3",  isNullValue(a3));
 	}
 	public String getB1() {
 		return b1;
 	}
 	public void setB1(String b1) {
-		this.b1 = isNullValue(b1)?"94757":b1;
+		this.b1 = isNullValue(b1) ? INITPATTERN: b1;
+		nulls.put("b1",  isNullValue(b1));
 	}
 	public String getB2() {
 		return b2;
 	}
 	public void setB2(String b2) {
-		this.b2 = isNullValue(b2)?"12345":b2;
+		this.b2 = isNullValue(b2) ? INITPATTERN: b2;
+		nulls.put("b2",  isNullValue(b2));
 	}
 	public String getB3() {
 		return b3;
 	}
 	public void setB3(String b3) {
-		this.b3 = isNullValue(b3)?"12345":b3;
+		this.b3 = isNullValue(b3) ? INITPATTERN: b3;
+		nulls.put("b3",  isNullValue(b3));
 	}
 	public String getC1() {
 		return c1;
 	}
 	public void setC1(String c1) {
-		this.c1 = isNullValue(c1)?"12345":c1;
+		this.c1 = isNullValue(c1) ? INITPATTERN: c1;
+		nulls.put("c1",  isNullValue(c1));
 	}
 	public String getC2() {
 		return c2;
 	}
 	public void setC2(String c2) {
-		this.c2 = isNullValue(c2)?"1 2 3\n4 5 6\n7 8 9":c2;
+		this.c2 = isNullValue(c2) ? INITPATTERN: c2;
+		nulls.put("c2",  isNullValue(c2));
 	}
 	public String getC3() {
 		return c3;
 	}
 	public void setC3(String c3) {
-		this.c3 = isNullValue(c3)?"12345":c3;
+		this.c3 = isNullValue(c3) ? INITPATTERN: c3;
+		nulls.put("c3",  isNullValue(c3));
 	}
 	
 	public void removeNullValues() {
@@ -100,7 +110,20 @@ public class SudokuSquare {
 	}
 
 	private boolean isNullValue(String s) {
-		return (" ".equals(s) || "0".equals(s) || "*".equals(s) || ".".equals(s)) == true;
+		//length check implies that if we cant distinguish between a real chosen value or
+		//a cell with only one option (in this case it is seen as "chosen by user"
+		return (" ".equals(s) || "0".equals(s) || "*".equals(s) || ".".equals(s)) || s.length()>1;
+	}
+	
+	public String getRowForExport(int index) {
+		if (index == 1)
+			return (nulls.get("a1")?"0":a1) + (nulls.get("b1")?"0":b1) + (nulls.get("c1")?"0":c1);
+		if (index == 2)
+			//return a2+b2+c2;
+			return (nulls.get("a2")?"0":a2) + (nulls.get("b2")?"0":b2) + (nulls.get("c2")?"0":c2);
+		if (index == 3)
+			return (nulls.get("a3")?"0":a3) + (nulls.get("b3")?"0":b3) + (nulls.get("c3")?"0":c3);
+		return null;
 	}
 	
 	
@@ -108,4 +131,83 @@ public class SudokuSquare {
 	public String toString() {
 		return this.a1 + "|" + b1 + "|" +  c1 + "\n" + a2 + "|" + b2 + "|" + c2 + "\n" + a3 + "|" + b3 + "|"+ c3;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((a1 == null) ? 0 : a1.hashCode());
+		result = prime * result + ((a2 == null) ? 0 : a2.hashCode());
+		result = prime * result + ((a3 == null) ? 0 : a3.hashCode());
+		result = prime * result + ((b1 == null) ? 0 : b1.hashCode());
+		result = prime * result + ((b2 == null) ? 0 : b2.hashCode());
+		result = prime * result + ((b3 == null) ? 0 : b3.hashCode());
+		result = prime * result + ((c1 == null) ? 0 : c1.hashCode());
+		result = prime * result + ((c2 == null) ? 0 : c2.hashCode());
+		result = prime * result + ((c3 == null) ? 0 : c3.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		// here we should take care of null values
+		return true;
+		/*
+		SudokuSquare other = (SudokuSquare) obj;
+		if (a1 == null) {
+			if (other.a1 != null)
+				return false;
+		} else if (!a1.equals(other.a1))
+			return false;
+		if (a2 == null) {
+			if (other.a2 != null)
+				return false;
+		} else if (!a2.equals(other.a2))
+			return false;
+		if (a3 == null) {
+			if (other.a3 != null)
+				return false;
+		} else if (!a3.equals(other.a3))
+			return false;
+		if (b1 == null) {
+			if (other.b1 != null)
+				return false;
+		} else if (!b1.equals(other.b1))
+			return false;
+		if (b2 == null) {
+			if (other.b2 != null)
+				return false;
+		} else if (!b2.equals(other.b2))
+			return false;
+		if (b3 == null) {
+			if (other.b3 != null)
+				return false;
+		} else if (!b3.equals(other.b3))
+			return false;
+		if (c1 == null) {
+			if (other.c1 != null)
+				return false;
+		} else if (!c1.equals(other.c1))
+			return false;
+		if (c2 == null) {
+			if (other.c2 != null)
+				return false;
+		} else if (!c2.equals(other.c2))
+			return false;
+		if (c3 == null) {
+			if (other.c3 != null)
+				return false;
+		} else if (!c3.equals(other.c3))
+			return false;
+		return true;
+		*/
+	}
+	
+	
 }

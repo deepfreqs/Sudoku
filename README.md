@@ -4,13 +4,20 @@ Just another Sudoku solver project playground
 # Zelle mit Optionen
 - der Sudoku Solver zeigt erst tabellarisch die Optionen, beim Klick wird ein editfield draus
 
+## UI
+
 # Das Modell in der HTML Form
-Die neun Quadrate mit ihren Schlüsseln in der SudokuForm
+Die neun Quadrate mit ihren Schlüsseln in der SudokuForm`
+
+````
 11 12 13
 21 22 23
 31 32 33
+````
 
 Der gleichförmige Aufbau der neun Quadrate
+
+````
 a1 b1 c1  a1 b1 c1  a1 b1 c1
 a2 b2 c2  a2 b2 c2  a2 b2 c2
 a3 b3 c3  a3 b3 c3  a3 b3 c3
@@ -22,12 +29,13 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 a1 b1 c1  a1 b1 c1  a1 b1 c1
 a2 b2 c2  a2 b2 c2  a2 b2 c2
 a3 b3 c3  a3 b3 c3  a3 b3 c3
-
+````
 
 # Beispiele für Importe
 - Der Sudoku Solver bietet an: 81 Nummern, 0, * oder . als "Zelle nicht gefüllt"
 - 000079065000003002005060093340050106000000000608020059950010600700600000820390000
 - 300401076602500040000006210500000180700010002021000007054300000090004608830109004 ein einfaches 
+
 ```
 6 0 8 0 9 5 1 0 0
 0 0 0 0 0 7 0 0 8
@@ -40,10 +48,28 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 7 0 4 9 8 0 0 2 0
 ```
 
+## Modell für Berechnungen
+
+- steckt im Package Domain
+- Die Klasse SudokuPlayground enthält eine 9x9 Matrix der Zellen.
+- SudokuCell weiß, in welche Zeile / Spalte / Sektor sie gehört.
+
+# ToDos
+- größere Knöpfe
+- Logging  XXXX erledigt
+- Docker
+- implementiere Iterator für Playground
+- Constraint Programming für die vollständige und direkte Lösung eines Sudoku
+
+
+# 15.04.2018
+- mit Backend für Optionen verhält die Anwendung jetzt idempotent
+- nächster Schritt: die errechneten Optionen in das UI bringen
+
 # 19.02.2018
 - next steps
-- leeres Sudoku
-- lade eines aus einem JSON
+- leeres Sudoku XXXX erledigt
+- lade eines aus einem JSON XXXX erledigt
  
   
 # 11.02.2018
@@ -139,3 +165,9 @@ interaction flow
 					  			</#list>
 									</textarea>
 								</#if>
+								
+								
+								
+			<@spring.bind path="sudokuForm.importSudoku"/>
+			<textarea class="numberlist" type="text" name="${spring.status.expression}" value="${spring.status.value}" />
+

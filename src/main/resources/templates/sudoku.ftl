@@ -17,7 +17,7 @@
 		  float: left;
 		  width: 20%;
 		  height: 300px;
-		  background-color: khaki;
+		  background-color: white;
 			margin-right:5%;
 			text-align:center; 
 			margin: 0px auto

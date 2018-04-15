@@ -1,4 +1,4 @@
-package org.deepfrequencies.sudoku;
+package org.deepfrequencies.sudoku.ui;
 
 import java.io.File;
 import java.io.FileWriter;

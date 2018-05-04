@@ -21,7 +21,7 @@ public class SudokuController {
 
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView getNextStep(@RequestParam(value = "action", required = false, defaultValue = "new") String action,
-    		@ModelAttribute("sudokuForm") SudokuForm sudokuForm, ModelMap model, BindingResult result) {
+    		@ModelAttribute("sudokuForm") SudokuForm sudokuForm, BindingResult result, ModelMap model) {
     	if (logger.isInfoEnabled()) {
         	logger.info("action = {0}", action);
         	logger.info(sudokuForm.toString());
@@ -34,6 +34,9 @@ public class SudokuController {
     	}
     	if ("load".equals(action)) {
     		sudokuForm = SudokuResponseBuilder.getBuilder().loadFromString(sudokuForm.getImportSudoku());
+    	}
+    	if ("simple".equals(action)) {
+    		sudokuForm.getImportSudoku();
     	}
     		
     	model.addAttribute(sudokuForm);

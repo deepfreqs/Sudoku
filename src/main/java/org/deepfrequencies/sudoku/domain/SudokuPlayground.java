@@ -81,8 +81,9 @@ public class SudokuPlayground implements Iterator<SudokuCell>{
 			}
 		}
 		//set rows for every cell
-		for (Pair key : cellMap.keySet()) {
-			SudokuCell cell = cellMap.get(key);
+		for (Map.Entry<Pair,SudokuCell> entry : cellMap.entrySet()) {
+			Pair key = entry.getKey();
+			SudokuCell cell = entry.getValue();
 			ArrayList<Integer> rowValues = new ArrayList<>();
 			for (int i = 1; i <= 9; i++) {
 				SudokuCell belongsToRow = cellMap.get(new Pair(key.x, i));
@@ -92,7 +93,7 @@ public class SudokuPlayground implements Iterator<SudokuCell>{
 			cell.setRow(rowValues);
 		}
 		
-		//set colums for every cell
+		//set column for every cell
 		for (Pair key : cellMap.keySet()) {
 			SudokuCell cell = cellMap.get(key);
 			ArrayList<Integer> colValues = new ArrayList<>();

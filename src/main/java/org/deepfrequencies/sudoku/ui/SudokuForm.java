@@ -3,6 +3,7 @@ package org.deepfrequencies.sudoku.ui;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.deepfrequencies.sudoku.domain.SudokuCell;
 import org.deepfrequencies.sudoku.domain.SudokuPlayground;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,7 @@ public class SudokuForm {
 
 	Map<String,SudokuSquare> sudokuSquares = new HashMap<>();
 	String importSudoku = "";
-
+	
 	public SudokuForm() {
     	for (int i = 1; i <= 3; i++) {
     		for (int j = 1; j <= 3; j++) {
@@ -46,17 +47,35 @@ public class SudokuForm {
 			for (int j = 0; j < 3; j++) {
 				SudokuSquare square = new SudokuSquare();
 				//here i need something to get the options out of the cells
-				square.setA1(String.valueOf(ground.getCell(i*3+1, j*3+1).getValue()));
-				square.setB1(String.valueOf(ground.getCell(i*3+1, j*3+2).getValue()));
-				square.setC1(String.valueOf(ground.getCell(i*3+1, j*3+3).getValue()));
+				SudokuCell cell = ground.getCell(i*3+1, j*3+1);
+				square.setA1(String.valueOf(cell.getValue()));
+				square.setA1Options(cell.getOptions());
+				cell = ground.getCell(i*3+1, j*3+2);
+				square.setB1(String.valueOf(cell.getValue()));
+				square.setB1Options(cell.getOptions());
+				cell = ground.getCell(i*3+1, j*3+3);
+				square.setC1(String.valueOf(cell.getValue()));
+				square.setC1Options(cell.getOptions());
 
-				square.setA2(String.valueOf(ground.getCell(i*3+2, j*3+1).getValue()));
-				square.setB2(String.valueOf(ground.getCell(i*3+2, j*3+2).getValue()));
-				square.setC2(String.valueOf(ground.getCell(i*3+2, j*3+3).getValue()));
+				cell = ground.getCell(i*3+2, j*3+1);
+				square.setA2(String.valueOf(cell.getValue()));
+				square.setA2Options(cell.getOptions());
+				cell = ground.getCell(i*3+2, j*3+2);
+				square.setB2(String.valueOf(cell.getValue()));
+				square.setB2Options(cell.getOptions());
+				cell = ground.getCell(i*3+2, j*3+3);
+				square.setC2(String.valueOf(cell.getValue()));
+				square.setC2Options(cell.getOptions());
 
-				square.setA3(String.valueOf(ground.getCell(i*3+3, j*3+1).getValue()));
-				square.setB3(String.valueOf(ground.getCell(i*3+3, j*3+2).getValue()));
-				square.setC3(String.valueOf(ground.getCell(i*3+3, j*3+3).getValue()));
+				cell = ground.getCell(i*3+3, j*3+1);
+				square.setA3(String.valueOf(cell.getValue()));
+				square.setA3Options(cell.getOptions());
+				cell = ground.getCell(i*3+3, j*3+2);
+				square.setB3(String.valueOf(cell.getValue()));
+				square.setB3Options(cell.getOptions());
+				cell = ground.getCell(i*3+3, j*3+3);
+				square.setC3(String.valueOf(cell.getValue()));
+				square.setC3Options(cell.getOptions());
 
 				sudokuSquares.put(String.valueOf(i+1) + String.valueOf(j+1), square);
 				

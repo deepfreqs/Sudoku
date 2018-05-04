@@ -63,7 +63,7 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 
 
 # 15.04.2018
-- mit Backend für Optionen verhält die Anwendung jetzt idempotent
+- mit Backend für Optionen verhält sich die Anwendung jetzt idempotent
 - nächster Schritt: die errechneten Optionen in das UI bringen
 
 # 19.02.2018

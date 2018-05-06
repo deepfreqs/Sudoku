@@ -74,7 +74,7 @@ public class SudokuPlayground implements Iterator<SudokuCell>{
 		//create cellMap with values
 		for (int i = 1; i <= 9; i++) {
 			for (int j = 1; j <= 9; j++) {
-				logger.info("SudokuPlayground: i = " + i + "j = " + j + ", value = " + lines[i-1].charAt(j-1));
+				logger.info("SudokuPlayground: i = " + i + ", j = " + j + ", value = " + lines[i-1].charAt(j-1));
 
 				SudokuCell cell = new SudokuCell(Integer.valueOf(String.valueOf(lines[i-1].charAt(j-1))));
 				cellMap.put(new Pair(i, j), cell);
@@ -119,13 +119,28 @@ public class SudokuPlayground implements Iterator<SudokuCell>{
 			for (int j = 1; j <= 9; j++) {
 				SudokuCell cell = cellMap.get(new Pair(i, j));
 				int v = cell.getValue();
-				ArrayList<Integer> sector = sectorMap.get(new Pair(i%3+1, j%3+1));
+				int iIndex = ((i-1) / 3) + 1;
+				int jIndex = ((j-1) / 3) + 1;
+				ArrayList<Integer> sector = sectorMap.get(new Pair(iIndex, jIndex));
 				if (v > 0) {
     				sector.add(v);
     			}
 				cell.setSector(sector);
 			}
 		}
+		
+		if (logger.isInfoEnabled()) {
+    		for (int i = 1; i <= 9; i++) {
+    			for (int j = 1; j <= 9; j++) {
+    				SudokuCell cell = cellMap.get(new Pair(i, j));
+    				logger.info("SudokuPlayground: current key: i = " + i + ", j = " + j + ", value = " + cell.getValue());
+    				logger.info("SudokuPlayground: row values for current cell: i = " + i + ", j = " + j + ", values = " + cell.getRow().toString());
+    				logger.info("SudokuPlayground: col values for current cell: i = " + i + ", j = " + j + ", values = " + cell.getColumn().toString());
+    				logger.info("SudokuPlayground: sector values for current cell: i = " + i + ", j = " + j + ", values = " + cell.getSector().toString());
+    			}
+    		}
+    	}
+
 	}
 	
 	public SudokuCell getCell(int i, int j) {

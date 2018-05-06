@@ -170,7 +170,7 @@ public class SudokuSquare {
 				result = options.stream().map(i -> i % 3 != 0 ? i + " " : i + "\n").collect(Collectors.joining());
 			}
 		}
-		return result;
+		return result.trim();
 	}
 	
 	@Override

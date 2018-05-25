@@ -16,11 +16,10 @@
 		#links {
 		  float: left;
 		  width: 20%;
-		  height: 300px;
+		  height: 600px;
 		  background-color: white;
-			margin-right:5%;
 			text-align:center; 
-			margin: 0px auto
+			margin: 20px auto
 		}
 		#rechts {
 		  float: left;
@@ -31,7 +30,7 @@
 		#inhalt {
 		  float: left;
 		  width: 40%;
-		  margin: 1px;
+		  margin: 30px;
 		  background-color: khaki;
 		}
 
@@ -55,8 +54,9 @@
 		button.submit {
 			text-align:center;
 			margin:10%;
-			width:15em;
-			height:40px;
+			width:200px;
+			height:50px;
+			border-radius: 10px;
 		  background-color: SKYBLUE;
 		}
 		input.cell{
@@ -73,16 +73,18 @@
 			background-color:GREENYELLOW;
 			font-size:15px;
 		}
-		input.numberlist
+		textarea.sudokuInput
 			text-align:center;
-			width:161em;
-			height:100%;
-			background-color:GREENYELLOW;
+			rows:20;
+			cols:40;
+			width:250px;
+			height:100px;
+			background-color:SKYBLUE;
 			font-size:20px;
 		}
 		select.formSingleSelect{
-        overflow:hidden;
-        text-align-all:center;
+			overflow:hidden;
+			text-align-all:center;
 		  border: 0px;
 			height: 100%;
 			width: 100%;
@@ -106,21 +108,23 @@
 			<button class="submit" type="submit" name="action" value="next">Next Step</button>
 			<button class="submit" type="submit" name="action" value="new">Reset all Fields</button>
 			<button class="submit" type="submit" name="action" value="load">Load from Number List</button>
+			<div>
 			<@spring.bind path="sudokuForm.importSudoku"/>			
-			<input class="numberlist" type="text" name="${spring.status.expression}" value="${spring.status.value}" />
+			<textarea class="sudokuInput" style="width:250px;height:100px;border-radius:10px;" name="${spring.status.expression}">${spring.stringStatusValue}</textArea>
+			</div>
 			<div>
 			Enter a string of 81 numbers<br> (you can express blanks as 0, *, or '.')
 			</div>
 	</div>
 	
 	<div id="inhalt">
-		<table style="border:1px;background-color: DARKKHAKI;width:750px;">
+		<table style="border:0px;background-color: DARKKHAKI;width:750px;">
 			<#assign seq = ['11', '12', '13', '21', '22', '23', '31', '32', '33']>
 			<#list seq?chunk(3) as row>
 			<tr> <!-- Zeile mit 3 Zeilen von Quadraten -->
 				<#list row as cell>
 				<td>
-					<table style="border:2px;margin:none;"> <!-- das 9x9 Zellen Quadrat -->
+					<table style="border:0px;margin:none;"> <!-- das 9x9 Zellen Quadrat -->
 						<tr>
 							<td class="cell">
 								<@spring.bind path="sudokuForm.sudokuSquares[${cell}].a1"/>

@@ -146,6 +146,15 @@ public class SudokuForm {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((importSudoku == null) ? 0 : importSudoku.hashCode());
+		result = prime * result + ((sudokuSquares == null) ? 0 : sudokuSquares.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -158,7 +167,8 @@ public class SudokuForm {
 			if (other.sudokuSquares != null)
 				return false;
 		} else {
-			for (String key : sudokuSquares.keySet()) {
+			for (Map.Entry<String,SudokuSquare> entry : sudokuSquares.entrySet()) {
+				String key = entry.getKey();
 				if (!sudokuSquares.get(key).equals(other.sudokuSquares.get(key)))
 					return false;
 			}

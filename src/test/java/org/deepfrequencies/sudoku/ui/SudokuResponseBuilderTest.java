@@ -38,7 +38,7 @@ public class SudokuResponseBuilderTest extends TestCase {
 	public void testCalculateNextStep() throws Exception {
 		SudokuResponseBuilder testSubject = createTestSubject();
 		SudokuForm sudokuForm = new SudokuForm(importSudoku);
-		SudokuForm result = testSubject.calculateNextStep(sudokuForm);
+		SudokuForm result = testSubject.takeAStep(sudokuForm);
 		assertTrue(result.equals(sudokuForm));
 	}
 

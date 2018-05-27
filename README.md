@@ -34,7 +34,8 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 # Beispiele für Importe
 - Der Sudoku Solver bietet an: 81 Nummern, 0, * oder . als "Zelle nicht gefüllt"
 - 000079065000003002005060093340050106000000000608020059950010600700600000820390000
-- 300401076602500040000006210500000180700010002021000007054300000090004608830109004 ein einfaches 
+- 300401076602500040000006210500000180700010002021000007054300000090004608830109004 ein einfaches
+- 000012300000400000105006700306000070700080009020000108001500403000001000003890000 auch einfach 
 
 ```
 6 0 8 0 9 5 1 0 0
@@ -55,11 +56,13 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 - SudokuCell weiß, in welche Zeile / Spalte / Sektor sie gehört.
 
 # ToDos
-- größere Knöpfe
-- Logging  XXXX erledigt
+- Algorithmus verbessern (Optionen sind noch nicht fehlerfrei)
+- "Gelöst"-Zustand erkennen und signalisieren
+- Android App
 - Docker
 - implementiere Iterator für Playground
 - Constraint Programming für die vollständige und direkte Lösung eines Sudoku
+- debug level per JMX
 
 
 # 15.04.2018
@@ -109,7 +112,10 @@ interaction flow
 - https://www.journaldev.com/3358/spring-requestmapping-requestparam-pathvariable-example
 
 # Diverse Snippets
-      
+
+			<@spring.bind "sudokuForm.strategy" />
+			<@spring.formSingleSelect "sudokuForm.strategy", strategyList, 'style="text-align-all:center;border:0px;border-radius:10px;width:300px;height:50px;background-color:GREENYELLOW;font-size:15px;"' />
+
 - sudokuForm.sudokuRows[${sudokuRow_index}].sudokuCols[${sudokuCol_index}].
 - <@spring.bind path="sudokuSquares[sudokuSquare_index].a1"/>
                   <input type="hidden" name="${spring.status.expression}" value="${spring.status.value}" />

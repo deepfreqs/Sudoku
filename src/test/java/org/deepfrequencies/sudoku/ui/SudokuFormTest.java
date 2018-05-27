@@ -31,7 +31,7 @@ public class SudokuFormTest extends TestCase{
 
 		// default test
 		testSubject = createTestSubject();
-		result = testSubject.getSudokuSquares();
+		result = testSubject.getSqs();
 		assertNotNull(result);
 	}
 
@@ -42,7 +42,7 @@ public class SudokuFormTest extends TestCase{
 
 		// default test
 		testSubject = createTestSubject();
-		testSubject.setSudokuSquares(sudokuSquares);
+		testSubject.setSqs(sudokuSquares);
 	}
 
 	@Test

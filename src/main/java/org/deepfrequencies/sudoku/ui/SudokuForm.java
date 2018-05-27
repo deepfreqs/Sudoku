@@ -12,14 +12,15 @@ public class SudokuForm {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	Map<String,SudokuSquare> sudokuSquares = new HashMap<>();
+	Map<String,SudokuSquare> sqs = new HashMap<>();
 	String importSudoku = "";
+	String playThis = "";
 	
 	public SudokuForm() {
     	for (int i = 1; i <= 3; i++) {
     		for (int j = 1; j <= 3; j++) {
     			SudokuSquare square = new SudokuSquare();
-        		sudokuSquares.put(String.valueOf(i) + String.valueOf(j), square);
+        		sqs.put(String.valueOf(i) + String.valueOf(j), square);
     		}
     	} 
 	}
@@ -37,7 +38,7 @@ public class SudokuForm {
     		String[] squareLines3 = lines[i*3 + 2].split(pattern);
     		for (int j = 0; j < 3; j++) {
     			SudokuSquare square = new SudokuSquare(squareLines1[j], squareLines2[j], squareLines3[j]);
-        		sudokuSquares.put(String.valueOf(i+1) + String.valueOf(j+1), square);
+        		sqs.put(String.valueOf(i+1) + String.valueOf(j+1), square);
     		}
     	} 
 	}
@@ -77,7 +78,7 @@ public class SudokuForm {
 				square.setC3(String.valueOf(cell.getValue()));
 				square.setC3Options(cell.getOptions());
 
-				sudokuSquares.put(String.valueOf(i+1) + String.valueOf(j+1), square);
+				sqs.put(String.valueOf(i+1) + String.valueOf(j+1), square);
 				
 			}
 		}
@@ -87,7 +88,7 @@ public class SudokuForm {
 		for (int i = 1; i <= 3; i++) {
 			for (int j = 1; j <= 3; j++) {
 				String key = String.valueOf(i) + String.valueOf(j);
-				SudokuSquare square = sudokuSquares.get(key);
+				SudokuSquare square = sqs.get(key);
 				square.removeNullValues();
 			}
 		}
@@ -95,12 +96,12 @@ public class SudokuForm {
 	}
 
 
-	public Map<String,SudokuSquare> getSudokuSquares() {
-		return sudokuSquares;
+	public Map<String,SudokuSquare> getSqs() {
+		return sqs;
 	}
 
-	public void setSudokuSquares(Map<String,SudokuSquare> sudokuSquares) {
-		this.sudokuSquares = sudokuSquares;
+	public void setSqs(Map<String,SudokuSquare> sudokuSquares) {
+		this.sqs = sudokuSquares;
 	}
 
 	public String getImportSudoku() {
@@ -110,14 +111,22 @@ public class SudokuForm {
 		this.importSudoku = importSudoku;
 	}
 	
+	public String getPlayThis() {
+		return playThis;
+	}
+
+	public void setPlayThis(String playThis) {
+		this.playThis = playThis;
+	}
+
 	public String exportToString() {
 		if (! importSudoku.isEmpty())
 			return importSudoku;
 		StringBuilder toExport = new StringBuilder();
     	for (int i = 1; i <= 3; i++) {
-    		SudokuSquare square1 = sudokuSquares.get(String.valueOf(i) + "1");
-    		SudokuSquare square2 = sudokuSquares.get(String.valueOf(i) + "2");
-    		SudokuSquare square3 = sudokuSquares.get(String.valueOf(i) + "3");
+    		SudokuSquare square1 = sqs.get(String.valueOf(i) + "1");
+    		SudokuSquare square2 = sqs.get(String.valueOf(i) + "2");
+    		SudokuSquare square3 = sqs.get(String.valueOf(i) + "3");
     		for (int j = 1; j <= 3; j++) {
     			String line1 = square1.getRowForExport(j);
     			String line2 = square2.getRowForExport(j);
@@ -134,13 +143,14 @@ public class SudokuForm {
 		for (int i = 1; i <= 3; i++) {
 			for (int j = 1; j <= 3; j++) {
 				String key = String.valueOf(i) + String.valueOf(j);
-				SudokuSquare square = sudokuSquares.get(key);
+				SudokuSquare square = sqs.get(key);
 				builder.append("--------" + key + "--------");
 				builder.append("\n");
 				builder.append(square.toString());
 				builder.append("\n");
 			}
 		}
+		builder.append("import: ").append(this.importSudoku).append("\nplayThis: ").append(this.playThis).append("\n");
 		return builder.toString(); 
 		
 	}
@@ -150,7 +160,7 @@ public class SudokuForm {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((importSudoku == null) ? 0 : importSudoku.hashCode());
-		result = prime * result + ((sudokuSquares == null) ? 0 : sudokuSquares.hashCode());
+		result = prime * result + ((sqs == null) ? 0 : sqs.hashCode());
 		return result;
 	}
 
@@ -163,13 +173,13 @@ public class SudokuForm {
 		if (getClass() != obj.getClass())
 			return false;
 		SudokuForm other = (SudokuForm) obj;
-		if (sudokuSquares == null) {
-			if (other.sudokuSquares != null)
+		if (sqs == null) {
+			if (other.sqs != null)
 				return false;
 		} else {
-			for (Map.Entry<String,SudokuSquare> entry : sudokuSquares.entrySet()) {
+			for (Map.Entry<String,SudokuSquare> entry : sqs.entrySet()) {
 				String key = entry.getKey();
-				if (!sudokuSquares.get(key).equals(other.sudokuSquares.get(key)))
+				if (!sqs.get(key).equals(other.sqs.get(key)))
 					return false;
 			}
 		}

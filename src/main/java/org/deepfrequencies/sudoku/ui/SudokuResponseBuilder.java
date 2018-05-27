@@ -11,16 +11,18 @@ import org.slf4j.LoggerFactory;
 public class SudokuResponseBuilder {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	public static final String EMPTYPLAYGROUND = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 	public static SudokuResponseBuilder getBuilder() {
 		return new SudokuResponseBuilder();
 	}
 	
 	public SudokuForm newSudokuForm() {
-    	return new SudokuForm("300401076602500040000006210500000180700010002021000007054300000090004608830109004");
+		return new SudokuForm(EMPTYPLAYGROUND);
 	}
 
-	public SudokuForm calculateNextStep(SudokuForm sudokuForm) {
+	public SudokuForm takeAStep(SudokuForm sudokuForm) {
 		SudokuPlayground ground = new SudokuPlayground(sudokuForm.exportToString());
 		SimpleNextStepStrategy.applyStrategy(ground);
 		sudokuForm = new SudokuForm(ground);
@@ -32,8 +34,14 @@ public class SudokuResponseBuilder {
 	}
 
 	public SudokuForm loadFromString(String toLoad) {
-		return new SudokuForm(toLoad);
+		SudokuForm form;
+		if (toLoad.isEmpty())
+			form = new SudokuForm(EMPTYPLAYGROUND);
+		else
+			form = new SudokuForm(toLoad);
+		return form;
 	}
+
 	public Map<String,Object> createModelMap() {
     	HashMap<String,Object> variables = new HashMap<>();
     	variables.put("sudokuForm", new SudokuForm());

@@ -42,6 +42,22 @@ public class SudokuResponseBuilder {
 		return form;
 	}
 
+	public SudokuForm tryToSolve(SudokuForm sudokuForm) {
+		SudokuPlayground ground = new SudokuPlayground(sudokuForm.exportToString());
+		SudokuPlayground formerGround = new SudokuPlayground(EMPTYPLAYGROUND);
+		int i = 0;
+		while (!ground.isSolved() && ! ground.equals(formerGround)) {
+			formerGround = ground.clone();
+			SimpleNextStepStrategy.applyStrategy(ground);
+			i+=1;
+			logger.info("tryToSolve: " + i);
+			logger.info("playground--------------------------\n");
+			logger.info(ground.toString());
+		}
+		sudokuForm = new SudokuForm(ground);
+    	return sudokuForm;
+	}
+
 	public Map<String,Object> createModelMap() {
     	HashMap<String,Object> variables = new HashMap<>();
     	variables.put("sudokuForm", new SudokuForm());
@@ -50,5 +66,4 @@ public class SudokuResponseBuilder {
     	}
     	return variables;
 	}
-
 }

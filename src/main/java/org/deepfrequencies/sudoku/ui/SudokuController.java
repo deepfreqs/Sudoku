@@ -40,6 +40,9 @@ public class SudokuController {
     	if ("import".equals(action)) {
     		sudokuForm = SudokuResponseBuilder.getBuilder().loadFromString(sudokuForm.getImportSudoku());
     	}	
+    	if ("solve".equals(action)) {
+    		sudokuForm = SudokuResponseBuilder.getBuilder().tryToSolve(sudokuForm);
+    	}	
     	model.addAttribute(sudokuForm);
     	
     	model.addAttribute("sudokuList", getListOfSudokus());

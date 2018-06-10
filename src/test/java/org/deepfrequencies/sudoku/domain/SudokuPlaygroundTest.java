@@ -36,24 +36,4 @@ public class SudokuPlaygroundTest extends TestCase {
 		assertTrue(result != null);
 	}
 
-	@Test
-	public void testHasNext() throws Exception {
-		SudokuPlayground testSubject;
-		boolean result;
-
-		// default test
-		testSubject = createTestSubject();
-		result = testSubject.hasNext();
-	}
-
-	@Test
-	public void testNext() throws Exception {
-		SudokuPlayground testSubject;
-		SudokuCell result;
-
-		// default test
-		testSubject = createTestSubject();
-		result = testSubject.next();
-		assertTrue(result != null);		
-	}
 }

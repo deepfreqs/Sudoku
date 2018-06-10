@@ -65,6 +65,12 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 - debug level per JMX
 
 
+# 10.06.2018
+- automatisch lösen
+-    isSolved noch testen!!
+-    bricht immer nach einem Durchlauf ab
+
+ 
 # 15.04.2018
 - mit Backend für Optionen verhält sich die Anwendung jetzt idempotent
 - nächster Schritt: die errechneten Optionen in das UI bringen

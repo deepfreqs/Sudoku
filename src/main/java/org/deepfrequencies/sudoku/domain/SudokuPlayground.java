@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
+import org.deepfrequencies.sudoku.Definitions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,14 +62,16 @@ public class SudokuPlayground implements Cloneable {
 	}
 
 	private Map<Pair, SudokuCell> cellMap = new LinkedHashMap<>();
+	private Map<Integer,List<SudokuCell>> rows = new HashMap<>();
+	private Map<Integer,List<SudokuCell>> columns = new HashMap<>();
+	private Map<Pair, List<SudokuCell>> sectors = new LinkedHashMap<>();
 
 	public Collection<SudokuCell> getCells() {
 		return cellMap.values();
 	}
 
 	public boolean isSolved() {
-		SudokuCell zero = new SudokuCell(0);
-		if (this.cellMap.containsValue(zero))
+		if (this.cellMap.containsValue(Definitions.zero))
 			return false;
 		return true;
 	}
@@ -88,6 +91,40 @@ public class SudokuPlayground implements Cloneable {
 				cellMap.put(new Pair(i, j), cell);
 			}
 		}
+		// put all rows together
+		for (int i = 1; i <= 9; i++) {
+			List<SudokuCell> cellsOfRow = new ArrayList<SudokuCell>();
+			rows.put(i, cellsOfRow);
+			for (int j = 1; j <= 9; j++) {
+				cellsOfRow.add(getCell(i,j));
+			}
+		}
+		// put all columns together
+		for (int j = 1; j <= 9; j++) {
+			List<SudokuCell> cellsOfColumn = new ArrayList<SudokuCell>();
+			rows.put(j, cellsOfColumn);
+			for (int i = 1; i <= 9; i++) {
+				cellsOfColumn.add(getCell(i,j));
+			}
+		}
+		//put all sectors together
+		for (int i = 1; i <= 3; i++) {
+			for (int j = 1; j <= 3; j++) {
+				List<SudokuCell> cellsOfSector = new ArrayList<SudokuCell>();
+				sectors.put(new Pair(i,j), cellsOfSector);
+				cellsOfSector.add(cellMap.get(new Pair((i*3)-2, (j*3)-2)));
+				cellsOfSector.add(cellMap.get(new Pair((i*3)-2, (j*3)-1)));
+				cellsOfSector.add(cellMap.get(new Pair((i*3)-2, (j*3))));
+				cellsOfSector.add(cellMap.get(new Pair((i*3)-1, (j*3)-2)));
+				cellsOfSector.add(cellMap.get(new Pair((i*3)-1, (j*3)-1)));
+				cellsOfSector.add(cellMap.get(new Pair((i*3)-1, (j*3))));
+				cellsOfSector.add(cellMap.get(new Pair((i*3), (j*3)-2)));
+				cellsOfSector.add(cellMap.get(new Pair((i*3), (j*3)-1)));
+				cellsOfSector.add(cellMap.get(new Pair((i*3), (j*3))));
+			}
+		}
+		
+		
 		// set rows for every cell
 		for (Map.Entry<Pair, SudokuCell> entry : cellMap.entrySet()) {
 			Pair key = entry.getKey();
@@ -159,13 +196,50 @@ public class SudokuPlayground implements Cloneable {
 	public SudokuCell getCell(int i, int j) {
 		return cellMap.get(new Pair(i, j));
 	}
+	
+	public Collection<SudokuCell> getRow(int i) {
+		return rows.get(i);
+	}
+	
+	public Collection<SudokuCell> getColumn(int i) {
+		return columns.get(i);
+	}
+
+	public Collection<SudokuCell> getSector(int i, int j) {
+		return sectors.get(new Pair(i,j));
+	}
+
+	public Map<Integer, List<SudokuCell>> getRows() {
+		return rows;
+	}
+
+	public void setRows(Map<Integer, List<SudokuCell>> rows) {
+		this.rows = rows;
+	}
+
+	public Map<Integer, List<SudokuCell>> getColumns() {
+		return columns;
+	}
+
+	public void setColumns(Map<Integer, List<SudokuCell>> columns) {
+		this.columns = columns;
+	}
+
+	public Map<Pair, List<SudokuCell>> getSectors() {
+		return sectors;
+	}
+
+	public void setSectors(Map<Pair, List<SudokuCell>> sectors) {
+		this.sectors = sectors;
+	}
 
 	@Override
 	public int hashCode() {
-		int[] vlist = cellMap.values().stream().mapToInt(c -> Integer.valueOf(c.getValue())).toArray();
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) ((cellMap == null) ? 0 : Arrays.stream(vlist).reduce((a, b) -> a + b));
+		result = prime * result + toString().hashCode();
+		//int[] vlist = cellMap.values().stream().mapToInt(c -> Integer.valueOf(c.getValue())).toArray();
+		//result = prime * result + (int) ((cellMap == null) ? 0 : Arrays.stream(vlist).reduce((a, b) -> a + b));
 		return result;
 	}
 
@@ -182,25 +256,27 @@ public class SudokuPlayground implements Cloneable {
 			if (other.cellMap != null)
 				return false;
 		} else
-			if (! new ArrayList<>(cellMap.entrySet()).equals(new ArrayList<>(other.cellMap.entrySet())))
+			if (! toString().equals(other.toString())) 
 				return false;
 			return true;
 	}
 
 	public SudokuPlayground clone() {
-		try {
-			return (SudokuPlayground) super.clone();
-		} catch (CloneNotSupportedException e) {
-			throw new InternalError();
-		}
+		return new SudokuPlayground(this.toString().replaceAll("\n", ""));
 	}
-
+	
+	public SudokuPlayground clearOptions() {
+		getCells().forEach(cell -> cell.clearOptions());
+		return new SudokuPlayground(this.toString().replaceAll("\n", ""));
+	}
+	
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
+		StringBuilder builder = new StringBuilder("\n");
 		for (int i = 1; i <= 9; i++) {
 			for (int j = 1; j <= 9; j++) {
-				builder.append("\n").append(this.getCell(i,j).getValue());
+				builder.append(this.getCell(i,j).getValue());
 			}
+			builder.append("\n");
 		}
 		return builder.toString();
 	}

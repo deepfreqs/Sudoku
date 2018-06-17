@@ -2,6 +2,9 @@ package org.deepfrequencies.sudoku;
 
 import java.util.Arrays;
 
+import org.deepfrequencies.sudoku.calculators.JustCalculateOptionsStrategy;
+import org.deepfrequencies.sudoku.calculators.ObviousSinglesStrategy;
+import org.deepfrequencies.sudoku.ui.SudokuResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -18,24 +21,39 @@ import org.springframework.context.annotation.Configuration;
 public class Application {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
 
-   @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-        return args -> {
+	@Bean
+	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+		return args -> {
 
-        	if (logger.isInfoEnabled()) {
-                logger.info("See the beans provided by Spring Boot:");
-        	}
-            String[] beanNames = ctx.getBeanDefinitionNames();
-            Arrays.sort(beanNames);
-            for (String beanName : beanNames) {
-                logger.info(beanName);
-            }
+			if (logger.isInfoEnabled()) {
+				logger.info("See the beans provided by Spring Boot:");
+			}
+			String[] beanNames = ctx.getBeanDefinitionNames();
+			Arrays.sort(beanNames);
+			for (String beanName : beanNames) {
+				logger.info(beanName);
+			}
 
-        };
-    }
+		};
+	}
+
+	@Bean(name="responseBuilder")
+	SudokuResponseBuilder responseBuilder() {
+		return new SudokuResponseBuilder();
+	}
+
+	@Bean(name="obviousSinglesStrategy")
+	ObviousSinglesStrategy obviousSinglesStrategy() {
+		return new ObviousSinglesStrategy();
+	}
+
+	@Bean(name="justCalculateOptionsStrategy")
+	JustCalculateOptionsStrategy justCalculateOptionsStrategy() {
+		return new JustCalculateOptionsStrategy();
+	}
 }

@@ -3,7 +3,11 @@ package org.deepfrequencies.sudoku.ui;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.deepfrequencies.sudoku.calculators.SimpleNextStepStrategy;
+import javax.annotation.Resource;
+
+import org.deepfrequencies.sudoku.Definitions;
+import org.deepfrequencies.sudoku.calculators.JustCalculateOptionsStrategy;
+import org.deepfrequencies.sudoku.calculators.ObviousSinglesStrategy;
 import org.deepfrequencies.sudoku.domain.SudokuPlayground;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,21 +16,24 @@ public class SudokuResponseBuilder {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public static final String EMPTYPLAYGROUND = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+	@Resource(name="justCalculateOptionsStrategy")	
+	JustCalculateOptionsStrategy justCalculateOptionsStrategy;
+	@Resource(name="obviousSinglesStrategy")	
+	ObviousSinglesStrategy obviousSinglesStrategy;
 
 	public static SudokuResponseBuilder getBuilder() {
 		return new SudokuResponseBuilder();
 	}
-	
+
 	public SudokuForm newSudokuForm() {
-		return new SudokuForm(EMPTYPLAYGROUND);
+		return new SudokuForm(Definitions.EMPTYPLAYGROUND);
 	}
 
 	public SudokuForm takeAStep(SudokuForm sudokuForm) {
 		SudokuPlayground ground = new SudokuPlayground(sudokuForm.exportToString());
-		SimpleNextStepStrategy.applyStrategy(ground);
+		justCalculateOptionsStrategy.applyStrategy(ground);
 		sudokuForm = new SudokuForm(ground);
-    	return sudokuForm;//.removeNullValues(); //do i still need this?
+    	return sudokuForm;
 	}
 
 	public SudokuForm removeNullValues(SudokuForm sudokuForm) {
@@ -36,7 +43,7 @@ public class SudokuResponseBuilder {
 	public SudokuForm loadFromString(String toLoad) {
 		SudokuForm form;
 		if (toLoad.isEmpty())
-			form = new SudokuForm(EMPTYPLAYGROUND);
+			form = new SudokuForm(Definitions.EMPTYPLAYGROUND);
 		else
 			form = new SudokuForm(toLoad);
 		return form;
@@ -44,11 +51,13 @@ public class SudokuResponseBuilder {
 
 	public SudokuForm tryToSolve(SudokuForm sudokuForm) {
 		SudokuPlayground ground = new SudokuPlayground(sudokuForm.exportToString());
-		SudokuPlayground formerGround = new SudokuPlayground(EMPTYPLAYGROUND);
+		SudokuPlayground formerGround = new SudokuPlayground(Definitions.EMPTYPLAYGROUND);
 		int i = 0;
 		while (!ground.isSolved() && ! ground.equals(formerGround)) {
 			formerGround = ground.clone();
-			SimpleNextStepStrategy.applyStrategy(ground);
+			ground.clearOptions();
+			justCalculateOptionsStrategy.applyStrategy(ground);
+			obviousSinglesStrategy.applyStrategy(ground);
 			i+=1;
 			logger.info("tryToSolve: " + i);
 			logger.info("playground--------------------------\n");

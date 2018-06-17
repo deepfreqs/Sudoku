@@ -11,7 +11,7 @@ public class SudokuCell {
 	List<Integer> row;
 	List<Integer> sector;
 	
-	SudokuCell (int value){
+	public SudokuCell (int value){
 		this.value = value;
 	}
 	
@@ -25,6 +25,10 @@ public class SudokuCell {
 		return options;
 	}
 	
+	public void clearOptions() {
+		options.clear();
+	}
+
 	public void addOption(int option) {
 		options.add(option);
 		options.sort(Comparator.naturalOrder());

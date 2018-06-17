@@ -64,6 +64,10 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 - Constraint Programming für die vollständige und direkte Lösung eines Sudoku
 - debug level per JMX
 
+# 17.06.2018
+- automatisch lösen
+-    in ObviousSinglesStrategy sind bislang nur die Zeilen implementiert
+
 
 # 10.06.2018
 - automatisch lösen

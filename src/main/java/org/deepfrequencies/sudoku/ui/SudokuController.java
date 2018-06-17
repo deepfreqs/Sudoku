@@ -4,8 +4,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 @RequestMapping("/sudoku")
 public class SudokuController {
+	
+	@Resource(name="responseBuilder")	
+	SudokuResponseBuilder responseBuilder;
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -29,19 +36,19 @@ public class SudokuController {
         	logger.info(sudokuForm.toString());
     	}
     	if ("new".equals(action)) {
-    		sudokuForm = SudokuResponseBuilder.getBuilder().newSudokuForm();
+    		sudokuForm = responseBuilder.newSudokuForm();
     	}
     	if ("next".equals(action)) {
-    		sudokuForm = SudokuResponseBuilder.getBuilder().takeAStep(sudokuForm);
+    		sudokuForm = responseBuilder.takeAStep(sudokuForm);
     	}
     	if ("load".equals(action)) {
-    		sudokuForm = SudokuResponseBuilder.getBuilder().loadFromString(sudokuForm.getPlayThis());
+    		sudokuForm = responseBuilder.loadFromString(sudokuForm.getPlayThis());
     	}	
     	if ("import".equals(action)) {
-    		sudokuForm = SudokuResponseBuilder.getBuilder().loadFromString(sudokuForm.getImportSudoku());
+    		sudokuForm = responseBuilder.loadFromString(sudokuForm.getImportSudoku());
     	}	
     	if ("solve".equals(action)) {
-    		sudokuForm = SudokuResponseBuilder.getBuilder().tryToSolve(sudokuForm);
+    		sudokuForm = responseBuilder.tryToSolve(sudokuForm);
     	}	
     	model.addAttribute(sudokuForm);
     	

@@ -1,6 +1,5 @@
 package org.deepfrequencies.sudoku.ui;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -8,8 +7,6 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,8 +30,8 @@ public class SudokuController {
     		@ModelAttribute("sudokuForm") SudokuForm sudokuForm, BindingResult result, ModelMap model) {
     	if (logger.isInfoEnabled()) {
         	logger.info("action = {0}", action);
-        	logger.info(sudokuForm.toString());
     	}
+    	logger.debug(sudokuForm.toString());
     	if ("new".equals(action)) {
     		sudokuForm = responseBuilder.newSudokuForm();
     	}
@@ -62,6 +59,7 @@ public class SudokuController {
 		sudokuList.put("000079065000003002005060093340050106000000000608020059950010600700600000820390000", "easy peasy");
 		sudokuList.put("300401076602500040000006210500000180700010002021000007054300000090004608830109004", "test piece");
 		sudokuList.put("000012300000400000105006700306000070700080009020000108001500403000001000003890000", "hoddel");
+		sudokuList.put("000105000140000670080002400063070010900000003010090520007200080026000035000409000", "dings");
 		return sudokuList;
 	}
 

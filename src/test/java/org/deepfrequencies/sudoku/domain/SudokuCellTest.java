@@ -61,20 +61,21 @@ public class SudokuCellTest extends TestCase{
 	public void testGetColumn() throws Exception {
 		SudokuCell testSubject;
 		List<Integer> result;
-
 		// default test
 		testSubject = createTestSubject();
-		result = testSubject.getColumn();
+		result = testSubject.getColumnValues();
+		assertNotNull(result);
 	}
 
 	@Test
 	public void testSetColumn() throws Exception {
 		SudokuCell testSubject;
-		ArrayList<Integer> column = null;
-
+		List<Integer> result = new ArrayList<>();
 		// default test
 		testSubject = createTestSubject();
-		testSubject.setColumn(column);
+		testSubject.setColumnValues(result);
+		result = testSubject.getColumnValues();
+		assertNotNull(result);
 	}
 
 	@Test
@@ -84,17 +85,20 @@ public class SudokuCellTest extends TestCase{
 
 		// default test
 		testSubject = createTestSubject();
-		result = testSubject.getRow();
+		result = testSubject.getRowValues();
+		assertNotNull(result);
 	}
 
 	@Test
 	public void testSetRow() throws Exception {
 		SudokuCell testSubject;
-		List<Integer> row = null;
+		List<Integer> result = new ArrayList<>();
 
 		// default test
 		testSubject = createTestSubject();
-		testSubject.setRow(row);
+		testSubject.setRowValues(result);
+		result = testSubject.getRowValues();
+		assertNotNull(result);
 	}
 
 	@Test
@@ -104,16 +108,19 @@ public class SudokuCellTest extends TestCase{
 
 		// default test
 		testSubject = createTestSubject();
-		result = testSubject.getSector();
+		result = testSubject.getSectorValues();
+		assertNotNull(result);
 	}
 
 	@Test
 	public void testSetSector() throws Exception {
 		SudokuCell testSubject;
-		ArrayList<Integer> sector = null;
+		List<Integer> result = new ArrayList<>();
 
 		// default test
 		testSubject = createTestSubject();
-		testSubject.setSector(sector);
+		testSubject.setSectorValues(result);
+		result = testSubject.getSectorValues();
+		assertNotNull(result);
 	}
 }

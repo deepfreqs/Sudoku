@@ -2,13 +2,12 @@ package org.deepfrequencies.sudoku.calculators;
 
 import org.deepfrequencies.sudoku.domain.SudokuPlayground;
 
-public class AbstractStrategy {
+abstract public class AbstractStrategy {
 
 	String name;
 
-	public void applyStrategy(SudokuPlayground applyTo) {
-	}
-
+	abstract public void applyStrategy(SudokuPlayground applyTo);
+	
 	public String getName() {
 		return name;
 	}

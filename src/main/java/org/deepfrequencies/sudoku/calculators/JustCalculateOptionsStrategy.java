@@ -3,6 +3,8 @@ package org.deepfrequencies.sudoku.calculators;
 import java.util.Collection;
 import org.deepfrequencies.sudoku.domain.SudokuCell;
 import org.deepfrequencies.sudoku.domain.SudokuPlayground;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Its not a real strategy, mere a precondition for applying strategies.
@@ -11,22 +13,12 @@ import org.deepfrequencies.sudoku.domain.SudokuPlayground;
  *
  */
 public class JustCalculateOptionsStrategy extends AbstractStrategy {
-	
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@Override
 	public void applyStrategy(SudokuPlayground applyTo) {
-		Collection<SudokuCell> cells = applyTo.getCells();
-		for (SudokuCell cell : (Collection<SudokuCell>) cells) {
-			//die Optionen stimmen nicht, daher dachte ich: Optionen nur setzen,
-			//wenn die Zelle einen Wert hat; aber jetzt funktioniert die Just..Strategie nicht??
-			for(int i = 1; i <= 9; i++) {
-				if (cell.getValue() == 0 &&
-					! cell.getRow().contains(i) &&
-					! cell.getColumn().contains(i) &&
-					! cell.getSector().contains(i)) {
-					cell.addOption(i);
-				}
-			}
-		}
+		applyTo.calculateOptions();
 	}
 
 }

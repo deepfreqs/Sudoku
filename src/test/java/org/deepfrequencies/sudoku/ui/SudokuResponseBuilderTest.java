@@ -56,18 +56,6 @@ public class SudokuResponseBuilderTest extends TestCase {
 	}
 
 	@Test
-	public void testRemoveNullValues() throws Exception {
-		SudokuResponseBuilder testSubject;
-		SudokuForm sudokuForm = new SudokuForm(importSudoku);
-		SudokuForm result;
-
-		// default test
-		testSubject = createTestSubject();
-		result = testSubject.removeNullValues(sudokuForm);
-		assertNotNull(result);
-	}
-
-	@Test
 	public void testLoadFromString() throws Exception {
 		SudokuResponseBuilder testSubject;
 		String toLoad = importSudoku;

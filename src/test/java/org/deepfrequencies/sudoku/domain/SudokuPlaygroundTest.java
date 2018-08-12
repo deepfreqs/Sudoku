@@ -40,8 +40,6 @@ public class SudokuPlaygroundTest extends TestCase {
 	@Test
 	public void testToString() throws Exception {
 		SudokuPlayground testSubject;
-		int i = 1;
-		int j = 1;
 		String result;
 
 		// default test
@@ -53,13 +51,9 @@ public class SudokuPlaygroundTest extends TestCase {
 	@Test
 	public void testEqualsAndClone() throws Exception {
 		SudokuPlayground testSubject;
-		int i = 1;
-		int j = 1;
-		String result;
-
 		// default test
 		testSubject = createTestSubject();
-		SudokuPlayground other = testSubject.clone();
+		SudokuPlayground other = testSubject.copy();
 		assertTrue(testSubject.equals(other));
 		other = new SudokuPlayground(Definitions.EMPTYPLAYGROUND);
 		assertFalse(testSubject.equals(other));

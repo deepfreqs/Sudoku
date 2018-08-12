@@ -36,10 +36,6 @@ public class SudokuResponseBuilder {
     	return sudokuForm;
 	}
 
-	public SudokuForm removeNullValues(SudokuForm sudokuForm) {
-    	return sudokuForm.removeNullValues();
-	}
-
 	public SudokuForm loadFromString(String toLoad) {
 		SudokuForm form;
 		if (toLoad.isEmpty())
@@ -52,16 +48,14 @@ public class SudokuResponseBuilder {
 	public SudokuForm tryToSolve(SudokuForm sudokuForm) {
 		SudokuPlayground ground = new SudokuPlayground(sudokuForm.exportToString());
 		SudokuPlayground formerGround = new SudokuPlayground(Definitions.EMPTYPLAYGROUND);
-		int i = 0;
-		while (!ground.isSolved() && ! ground.equals(formerGround)) {
-			formerGround = ground.clone();
-			ground.clearOptions();
-			justCalculateOptionsStrategy.applyStrategy(ground);
+		int i = 1;
+		while (!ground.isSolved() && ! ground.equals(formerGround) && i < 500) {
+			formerGround = ground.copy();
+			ground = ground.copy(); //?????? warum?
 			obviousSinglesStrategy.applyStrategy(ground);
-			i+=1;
-			logger.info("tryToSolve: " + i);
-			logger.info("playground--------------------------\n");
+			logger.info("playground after obviousSinglesStrategy " + i + " iteration----------\n");
 			logger.info(ground.toString());
+			i+=1;
 		}
 		sudokuForm = new SudokuForm(ground);
     	return sudokuForm;

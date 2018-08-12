@@ -7,9 +7,14 @@ import java.util.List;
 public class SudokuCell {
 	int value;
 	List<Integer> options = new ArrayList<>();
-	List<Integer> column;
-	List<Integer> row;
-	List<Integer> sector;
+	List<Integer> columnValues = new ArrayList<>();
+	List<Integer> rowValues = new ArrayList<>();
+	List<Integer> sectorValues = new ArrayList<>();
+	
+	List<SudokuCell> row = new ArrayList<>();
+	List<SudokuCell> column = new ArrayList<>();
+	List<SudokuCell> sector = new ArrayList<>();
+
 	
 	public SudokuCell (int value){
 		this.value = value;
@@ -20,7 +25,11 @@ public class SudokuCell {
 	}
 	public void setValue(int value) {
 		this.value = value;
+		if (value > 0) {
+			clearOptions();
+		}
 	}
+
 	public List<Integer> getOptions() {
 		return options;
 	}
@@ -28,27 +37,58 @@ public class SudokuCell {
 	public void clearOptions() {
 		options.clear();
 	}
-
+	
 	public void addOption(int option) {
 		options.add(option);
 		options.sort(Comparator.naturalOrder());
 	}
-	public List<Integer> getColumn() {
-		return column;
+	
+	public void removeInvalidOptions() {
+		row.forEach(cell -> cell.getOptions().remove(Integer.valueOf(value)));
+		column.forEach(cell -> cell.getOptions().remove(Integer.valueOf(value)));
+		sector.forEach(cell -> cell.getOptions().remove(Integer.valueOf(value)));
 	}
-	public void setColumn(List<Integer> column) {
-		this.column = column;
+	
+	public List<Integer> getColumnValues() {
+		return columnValues;
 	}
-	public List<Integer> getRow() {
+	public void setColumnValues(List<Integer> columnValues) {
+		this.columnValues = columnValues;
+	}
+	public List<Integer> getRowValues() {
+		return rowValues;
+	}
+	public void setRowValues(List<Integer> rowValues) {
+		this.rowValues = rowValues;
+	}
+	public List<Integer> getSectorValues() {
+		return sectorValues;
+	}
+	public void setSectorValues(List<Integer> sectorValues) {
+		this.sectorValues = sectorValues;
+	}
+
+	public List<SudokuCell> getRow() {
 		return row;
 	}
-	public void setRow(List<Integer> row) {
+
+	public void setRow(List<SudokuCell> row) {
 		this.row = row;
 	}
-	public List<Integer> getSector() {
+
+	public List<SudokuCell> getColumn() {
+		return column;
+	}
+
+	public void setColumn(List<SudokuCell> column) {
+		this.column = column;
+	}
+
+	public List<SudokuCell> getSector() {
 		return sector;
 	}
-	public void setSector(List<Integer> sector) {
+
+	public void setSector(List<SudokuCell> sector) {
 		this.sector = sector;
 	}
 

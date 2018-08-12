@@ -49,7 +49,7 @@ public class SudokuResponseBuilder {
 		SudokuPlayground ground = new SudokuPlayground(sudokuForm.exportToString());
 		SudokuPlayground formerGround = new SudokuPlayground(Definitions.EMPTYPLAYGROUND);
 		int i = 1;
-		while (!ground.isSolved() && ! ground.equals(formerGround) && i < 500) {
+		while (!ground.isSolved() && ! ground.equals(formerGround)) {
 			formerGround = ground.copy();
 			ground = ground.copy(); //?????? warum?
 			obviousSinglesStrategy.applyStrategy(ground);

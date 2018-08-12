@@ -122,12 +122,10 @@
 			<button class="submit" type="submit" name="action" value="load">Load one from list</button>
 			<@spring.bind "sudokuForm.playThis" />
 			<@spring.formSingleSelect "sudokuForm.playThis", sudokuList, 'style="text-align:center;border-radius:10px;width:300px;height:50px;background-color:LIGHTBLUE;font-size:15px;"' />
-			<div>
 			<hr>
 			<button class="submit" type="submit" name="action" value="import">Import a predefined Sudoku</button>
 			<@spring.bind path="sudokuForm.importSudoku"/>			
 			<textarea class="sudokuInput" style="width:220px;height:100px;border-radius:10px;" name="${spring.status.expression}">${spring.stringStatusValue}</textArea>
-			</div>
 			<div style="font-size:15px;">
 			Enter a string of 81 numbers<br> (you can express blanks as 0, *, or '.')
 			</div>

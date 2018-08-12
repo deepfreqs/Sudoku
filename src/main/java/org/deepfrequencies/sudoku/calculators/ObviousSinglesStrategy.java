@@ -33,6 +33,7 @@ public class ObviousSinglesStrategy extends AbstractStrategy {
 		applyTo.setSingleOptionsAsValues();
 	}
 
+	//isnt used anymore but i like to keep the code because of the streams api usage
 	public void applyStrategyDeprecated(SudokuPlayground applyTo) {
 		ground = applyTo;
 		// for initialization

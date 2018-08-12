@@ -57,22 +57,26 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 
 # ToDos
 - Algorithmus verbessern (Optionen sind noch nicht fehlerfrei)
-- "Gelöst"-Zustand erkennen und signalisieren
+- Playground constructor refactoring 
+- "Gelöst"-Zustand erkennen und signalisieren XXXX erledigt
 - Android App
 - Docker
 - implementiere Iterator für Playground
 - Constraint Programming für die vollständige und direkte Lösung eines Sudoku
 - debug level per JMX
 
+# 12.08.2018
+- calculators package TEstabdeckung
+
 # 17.06.2018
 - automatisch lösen
--    in ObviousSinglesStrategy sind bislang nur die Zeilen implementiert
+-    in ObviousSinglesStrategy sind bislang nur die Zeilen implementiert XXXX erledigt
 
 
 # 10.06.2018
 - automatisch lösen
--    isSolved noch testen!!
--    bricht immer nach einem Durchlauf ab
+-    isSolved noch testen!! XXXX erledig
+-    bricht immer nach einem Durchlauf ab XXXX erledigt
 
  
 # 15.04.2018

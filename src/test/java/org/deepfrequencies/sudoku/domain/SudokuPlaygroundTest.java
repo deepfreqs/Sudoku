@@ -59,4 +59,13 @@ public class SudokuPlaygroundTest extends TestCase {
 		assertFalse(testSubject.equals(other));
 		
 	}
+
+	@Test
+	public void testIsSolved() throws Exception {
+		SudokuPlayground testSubject;
+		// default test
+		testSubject = createTestSubject();
+		assertFalse(testSubject.isSolved());
+	}
+
 }

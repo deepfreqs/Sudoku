@@ -57,16 +57,23 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 
 # ToDos
 - Algorithmus verbessern (Optionen sind noch nicht fehlerfrei)
-- Playground constructor refactoring 
+- Playground constructor refactoring ??? keine richtige Idee
+- calculators package Testabdeckung XXXX erledigt
+- Strategie-Auswahl am Client  XXXX erledigt
 - "Gelöst"-Zustand erkennen und signalisieren XXXX erledigt
 - Android App
 - Docker
-- implementiere Iterator für Playground
 - Constraint Programming für die vollständige und direkte Lösung eines Sudoku
 - debug level per JMX
 
+# 19.08.2018
+- Playground constructor refactoring ??? keine richtige Idee; wäre tatsächlich
+eine große Nummer
+- Strategie-Auswahl vorbereitet
+- Kleinigkeiten
+
 # 12.08.2018
-- calculators package TEstabdeckung
+- wieder reinkommen
 
 # 17.06.2018
 - automatisch lösen

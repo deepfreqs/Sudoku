@@ -24,7 +24,7 @@
 		#links {
 		  float: left;
 		  width: 20%;
-		  height: 600px;
+		  height: 700px;
 			text-align:center; 
 		  margin: 30px;
 		  background-color: khaki;
@@ -32,7 +32,7 @@
 		#rechts {
 		  float: left;
 		  width: 20%;
-		  height: 600px;
+		  height: 700px;
 		  margin: 30px;
 			text-align:center; 
 		  background-color: khaki;
@@ -103,6 +103,10 @@
 		  background-color: GREENYELLOW;
 			font-size:15px;
 		}
+		hr {
+			color: blue;
+			background: #dfac20;
+		}
 		
     </style>
 </head>
@@ -122,7 +126,7 @@
 			<button class="submit" type="submit" name="action" value="load">Load one from list</button>
 			<@spring.bind "sudokuForm.playThis" />
 			<@spring.formSingleSelect "sudokuForm.playThis", sudokuList, 'style="text-align:center;border-radius:10px;width:300px;height:50px;background-color:LIGHTBLUE;font-size:15px;"' />
-			<hr>
+			<hr style="color:BLACK;">
 			<button class="submit" type="submit" name="action" value="import">Import a predefined Sudoku</button>
 			<@spring.bind path="sudokuForm.importSudoku"/>			
 			<textarea class="sudokuInput" style="width:220px;height:100px;border-radius:10px;" name="${spring.status.expression}">${spring.stringStatusValue}</textArea>
@@ -229,7 +233,11 @@
 		<div>
 			<button class="submit" type="submit" name="action" value="next">Next Step</button>
 			<button class="submit" type="submit" name="action" value="solve">Try to solve!</button>
-			<button class="submit" type="submit" name="action" value="strategy">Choose strategy (not working yet)</button>
+			<hr>
+			<button class="submit" type="submit" name="action" value="strategy">Choose strategy</button>
+			<@spring.bind "sudokuForm.strategy" />
+			<@spring.formSingleSelect "sudokuForm.strategy", strategyList, 'style="text-align:center;border-radius:10px;width:300px;height:50px;background-color:LIGHTBLUE;font-size:15px;"' />
+
 			<br/>
 		</div>
 		<div>

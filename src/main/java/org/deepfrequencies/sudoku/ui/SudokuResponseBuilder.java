@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.deepfrequencies.sudoku.Definitions;
+import org.deepfrequencies.sudoku.calculators.AbstractStrategy;
 import org.deepfrequencies.sudoku.calculators.JustCalculateOptionsStrategy;
 import org.deepfrequencies.sudoku.calculators.ObviousSinglesStrategy;
 import org.deepfrequencies.sudoku.domain.SudokuPlayground;
@@ -45,14 +46,14 @@ public class SudokuResponseBuilder {
 		return form;
 	}
 
-	public SudokuForm tryToSolve(SudokuForm sudokuForm) {
+	public SudokuForm tryToSolve(SudokuForm sudokuForm, String strategy) {
 		SudokuPlayground ground = new SudokuPlayground(sudokuForm.exportToString());
 		SudokuPlayground formerGround = new SudokuPlayground(Definitions.EMPTYPLAYGROUND);
 		int i = 1;
 		while (!ground.isSolved() && ! ground.equals(formerGround)) {
 			formerGround = ground.copy();
-			ground = ground.copy(); //?????? warum?
-			obviousSinglesStrategy.applyStrategy(ground);
+			ground = ground.copy(); //?????? warum? wegen der String-Repräsentaton, ist dann eigentlich noch nicht gut
+			selectStrategy(strategy).applyStrategy(ground);
 			logger.info("playground after obviousSinglesStrategy " + i + " iteration----------\n");
 			logger.info(ground.toString());
 			i+=1;
@@ -68,5 +69,10 @@ public class SudokuResponseBuilder {
         	logger.info(variables.toString());
     	}
     	return variables;
+	}
+	
+	AbstractStrategy selectStrategy(String strategy) {
+		return obviousSinglesStrategy;
+		//strategyList.forEach(r....strategy.equals(classname...
 	}
 }

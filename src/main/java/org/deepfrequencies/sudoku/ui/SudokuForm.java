@@ -15,6 +15,7 @@ public class SudokuForm {
 	Map<String,SudokuSquare> sqs = new HashMap<>();
 	String importSudoku = "";
 	String playThis = "";
+	String strategy ="";
 	
 	public SudokuForm() {
     	for (int i = 1; i <= 3; i++) {
@@ -119,6 +120,14 @@ public class SudokuForm {
 		this.playThis = playThis;
 	}
 
+	public String getStrategy() {
+		return strategy;
+	}
+
+	public void setStrategy(String strategy) {
+		this.strategy = strategy;
+	}
+
 	public String exportToString() {
 		if (! importSudoku.isEmpty())
 			return importSudoku;
@@ -151,6 +160,7 @@ public class SudokuForm {
 			}
 		}
 		builder.append("import: ").append(this.importSudoku).append("\nplayThis: ").append(this.playThis).append("\n");
+		builder.append("strategy: ").append(this.strategy);
 		return builder.toString(); 
 		
 	}

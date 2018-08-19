@@ -33,6 +33,6 @@ public class ObviousSinglesStrategyTest extends TestCase{
 
 		// default test
 		testSubject = createTestSubject();
-		testSubject.applyStrategy(applyTo);
+		testSubject.applyStrategyDeprecated(applyTo);
 	}
 }

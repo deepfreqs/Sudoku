@@ -87,6 +87,12 @@ public class SudokuPlayground implements Cloneable {
 				cellMap.put(new Pair(i, j), cell);
 			}
 		}
+		// prepare playground for solution searches
+		buildStructure(this);
+		fillStructure(this);
+	}
+		
+	private void buildStructure(SudokuPlayground playground) {
 		// put all rows together
 		for (int i = 1; i <= 9; i++) {
 			List<SudokuCell> cellsOfRow = new ArrayList<>();
@@ -119,8 +125,9 @@ public class SudokuPlayground implements Cloneable {
 				cellsOfSector.add(cellMap.get(new Pair((i*3), (j*3))));
 			}
 		}
+	}
 		
-		
+	private void fillStructure(SudokuPlayground playground) {
 		// set rows for every cell
 		for (Map.Entry<Pair, SudokuCell> entry : cellMap.entrySet()) {
 			Pair key = entry.getKey();
@@ -259,8 +266,6 @@ public class SudokuPlayground implements Cloneable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + toString().hashCode();
-		//int[] vlist = cellMap.values().stream().mapToInt(c -> Integer.valueOf(c.getValue())).toArray();
-		//result = prime * result + (int) ((cellMap == null) ? 0 : Arrays.stream(vlist).reduce((a, b) -> a + b));
 		return result;
 	}
 
@@ -300,11 +305,13 @@ public class SudokuPlayground implements Cloneable {
 			}
 		}
 		//this is only for checking plausibility
-		for(int i = 1; i <= 9; i++) {
-			for(int j = 1; j <= 9; j++) {
-				SudokuCell cell = this.getCell(i, j);
-				if (cell.getValue() != 0 && cell.getOptions().contains(cell.getValue()))
-					logger.debug("cell " + i + ", " + j + " has its value as option");
+		if (logger.isDebugEnabled()) {
+			for (int i = 1; i <= 9; i++) {
+				for (int j = 1; j <= 9; j++) {
+					SudokuCell cell = this.getCell(i, j);
+					if (cell.getValue() != 0 && cell.getOptions().contains(cell.getValue()))
+						logger.debug("cell " + i + ", " + j + " has its value as option");
+				}
 			}
 		}
 	}
@@ -312,7 +319,6 @@ public class SudokuPlayground implements Cloneable {
 	public SudokuPlayground clearOptions() {
 		getCells().forEach(c -> c.clearOptions());
 		return this;
-//????		return new SudokuPlayground(this.toString().replaceAll("\n", ""));
 	}
 	
 	public String toString() {
@@ -333,7 +339,7 @@ public class SudokuPlayground implements Cloneable {
 			}
 		}
 
-		getCells().forEach(cell -> cell.getOptions());
+//		getCells().forEach(cell -> cell.getOptions());
 		
 	}
 }

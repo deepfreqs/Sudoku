@@ -27,9 +27,11 @@ public class SudokuController {
 
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView getRequest(@RequestParam(value = "action", required = false, defaultValue = "new") String action,
+    		@RequestParam(value = "strategy", required = false, defaultValue = "ObviousSinglesStrategy") String strategy,
     		@ModelAttribute("sudokuForm") SudokuForm sudokuForm, BindingResult result, ModelMap model) {
     	if (logger.isInfoEnabled()) {
-        	logger.info("action = {0}", action);
+        	logger.info("action = " + action);
+        	logger.info("strategy = " + strategy);
     	}
     	logger.debug(sudokuForm.toString());
     	if ("new".equals(action)) {
@@ -45,16 +47,17 @@ public class SudokuController {
     		sudokuForm = responseBuilder.loadFromString(sudokuForm.getImportSudoku());
     	}	
     	if ("solve".equals(action)) {
-    		sudokuForm = responseBuilder.tryToSolve(sudokuForm);
+    		sudokuForm = responseBuilder.tryToSolve(sudokuForm, strategy);
     	}	
     	model.addAttribute(sudokuForm);
     	
     	model.addAttribute("sudokuList", getListOfSudokus());
+    	model.addAttribute("strategyList", getListOfStrategies());
     	return new ModelAndView("sudoku", model);
     }
     
-	Map getListOfSudokus() {
-		Map sudokuList = new LinkedHashMap();
+	Map<String,String> getListOfSudokus() {
+		Map<String,String> sudokuList = new LinkedHashMap<String,String>();
 		sudokuList.put("", "");
 		sudokuList.put("000079065000003002005060093340050106000000000608020059950010600700600000820390000", "easy peasy");
 		sudokuList.put("300401076602500040000006210500000180700010002021000007054300000090004608830109004", "test piece");
@@ -63,5 +66,10 @@ public class SudokuController {
 		return sudokuList;
 	}
 
+	Map<String,String> getListOfStrategies() {
+		Map<String,String> list = new LinkedHashMap<String,String>();
+		list.put("ObviousSinglesStrategy", "set obvious singles as values");
+		return list;
+	}
 
 }

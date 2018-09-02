@@ -15,11 +15,12 @@
 		}
 		#header {
 		  float: none;
-		  width: 100%;
+		  width: 80%;
 		  height: 100px;
-			text-align:center; 
-		  margin: 10px;
-		  background-color: red;
+			text-align:justify; 
+		  margin-left: 100px;
+		  margin-bottom: 10px;
+		  background-color: darkorange;
 		}
 		#links {
 		  float: left;
@@ -116,6 +117,12 @@
 
 	<div id="header">
 		<h2 text-align="center" class="hello-title">Hello first Sudoku!</h2>
+		You can play Sudoku in different ways: just edit a game, import one, for instance from 
+		http://forum.enjoysudoku.com/patterns-game-results-t6291.html, or load one from the list. 
+		Storing Your game is currently not supported. With "next step", the site recalculates the playground. 
+		With "Try to Solve", currently only a simple strategy tries to solve the playground. Thats it right now!
+		<br>
+		Comments etc.: <a href="mailto:deepfreqs@quantentunnel.de">Deep Frequencies</a>, 
 	</div>
 	
 	<@spring.bind "sudokuForm"/>
@@ -125,7 +132,7 @@
 			<hr>
 			<button class="submit" type="submit" name="action" value="load">Load one from list</button>
 			<@spring.bind "sudokuForm.playThis" />
-			<@spring.formSingleSelect "sudokuForm.playThis", sudokuList, 'style="text-align:center;border-radius:10px;width:300px;height:50px;background-color:LIGHTBLUE;font-size:15px;"' />
+			<@spring.formSingleSelect "sudokuForm.playThis", sudokuList, 'style="text-align:center;border-radius:10px;margin:10%;width:300px;height:50px;background-color:LIGHTBLUE;font-size:15px;"' />
 			<hr style="color:BLACK;">
 			<button class="submit" type="submit" name="action" value="import">Import a predefined Sudoku</button>
 			<@spring.bind path="sudokuForm.importSudoku"/>			
@@ -236,7 +243,7 @@
 			<hr>
 			<button class="submit" type="submit" name="action" value="strategy">Choose strategy</button>
 			<@spring.bind "sudokuForm.strategy" />
-			<@spring.formSingleSelect "sudokuForm.strategy", strategyList, 'style="text-align:center;border-radius:10px;width:300px;height:50px;background-color:LIGHTBLUE;font-size:15px;"' />
+			<@spring.formSingleSelect "sudokuForm.strategy", strategyList, 'style="text-align:center;border-radius:10px;margin:10%;width:300px;height:50px;background-color:LIGHTBLUE;font-size:15px;"' />
 
 			<br/>
 		</div>

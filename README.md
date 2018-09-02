@@ -56,7 +56,7 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 - SudokuCell weiß, in welche Zeile / Spalte / Sektor sie gehört.
 
 # ToDos
-- Algorithmus verbessern (Optionen sind noch nicht fehlerfrei)
+- Singles werden nicht gefunden; stimmen die Werte-Vektoren? kannst Du bei einem der schwereren testen
 - Playground constructor refactoring ??? keine richtige Idee
 - calculators package Testabdeckung XXXX erledigt
 - Strategie-Auswahl am Client  XXXX erledigt
@@ -65,6 +65,11 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 - Docker
 - Constraint Programming für die vollständige und direkte Lösung eines Sudoku
 - debug level per JMX
+- Persistenz
+
+# 02.09.2018
+- Spring Boot Admin: funktioniert noch nicht richtig ohne actuator
+- und cloud discovery wäre auch besser
 
 # 19.08.2018
 - Playground constructor refactoring ??? keine richtige Idee; wäre tatsächlich
@@ -116,6 +121,13 @@ interaction flow
   - ModelAndView ist nur für get quasi readonly
   
 
+
+# Strategien
+## Hidden Singles
+	Beispiel: eine Zeile enthält 3 freie Zellen, 1 links, 2 mitte, die 2 enthalten jeweils
+	4 als Option; im Block links ist 4 nur einmal Option, aber in einer anderen Zeile >
+	das muss ein Single sein
+	
 # Freemarker
   - spring.ftl wird live gefunden, aber im FreemarkerTest nicht
   - interessant zu wissen wäre, ob man der Freemarker-Config mehrere Pfade für Templates übergeben kann, und wenn ja, in welchem Format

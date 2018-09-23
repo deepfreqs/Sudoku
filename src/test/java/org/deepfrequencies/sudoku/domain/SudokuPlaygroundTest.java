@@ -67,5 +67,16 @@ public class SudokuPlaygroundTest extends TestCase {
 		testSubject = createTestSubject();
 		assertFalse(testSubject.isSolved());
 	}
+	
+	@Test
+	public void testSetHiddenSinglesAsValues() throws Exception {
+		SudokuPlayground testSubject;
+		// default test
+		testSubject = createTestSubject();
+		testSubject.calculateOptions();
+		System.out.println(testSubject.toString());
+		testSubject.setHiddenSinglesAsValues();
+		assertFalse(testSubject.isSolved());
+	}
 
 }

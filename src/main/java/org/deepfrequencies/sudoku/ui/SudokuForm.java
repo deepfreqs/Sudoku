@@ -32,6 +32,7 @@ public class SudokuForm {
 			logger.info("not a valid Sudoku input");
 		}
 		this.setImportSudoku(toLoad);
+		this.setPlayThis(toLoad);
 		String pattern = "(?<=\\G.{3})";
     	for (int i = 0; i < 3; i++) {
     		String[] squareLines1 = lines[i*3].split(pattern);

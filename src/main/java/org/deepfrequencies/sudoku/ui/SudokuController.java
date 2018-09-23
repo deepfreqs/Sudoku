@@ -69,6 +69,7 @@ public class SudokuController {
 	Map<String,String> getListOfStrategies() {
 		Map<String,String> list = new LinkedHashMap<String,String>();
 		list.put("ObviousSinglesStrategy", "set obvious singles as values");
+		list.put("HiddenSinglesStrategy", "set hidden singles as values");
 		return list;
 	}
 

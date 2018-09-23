@@ -56,20 +56,27 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 - SudokuCell weiß, in welche Zeile / Spalte / Sektor sie gehört.
 
 # ToDos
-- Singles werden nicht gefunden; stimmen die Werte-Vektoren? kannst Du bei einem der schwereren testen
-- Playground constructor refactoring ??? keine richtige Idee
+- Hidden Singles als Strategie implementieren, s.u.
+- Playground constructor refactoring ??? keine richtige Idee XXXX erledigt
 - calculators package Testabdeckung XXXX erledigt
 - Strategie-Auswahl am Client  XXXX erledigt
 - "Gelöst"-Zustand erkennen und signalisieren XXXX erledigt
 - Android App
 - Docker
 - Constraint Programming für die vollständige und direkte Lösung eines Sudoku
-- debug level per JMX
+- debug level per JMX  XXX erledigt per SpringBootAdmin
 - Persistenz
+
+
+# 23.09.2018
+- hidden single strategy läuft noch nicht von allein durch => debuggen
+- UI gerundet
 
 # 02.09.2018
 - Spring Boot Admin: funktioniert noch nicht richtig ohne actuator
+- XXXX gelöst durch richtiges expose der endpoints
 - und cloud discovery wäre auch besser
+
 
 # 19.08.2018
 - Playground constructor refactoring ??? keine richtige Idee; wäre tatsächlich
@@ -127,7 +134,8 @@ interaction flow
 	Beispiel: eine Zeile enthält 3 freie Zellen, 1 links, 2 mitte, die 2 enthalten jeweils
 	4 als Option; im Block links ist 4 nur einmal Option, aber in einer anderen Zeile >
 	das muss ein Single sein
-	
+	verallgemeinert: wenn eine Zahl über row/col/box nur einmal vorkommt, dann
+	ist das ein hidden single - ist noch nicht implementiert!! aber einfach
 # Freemarker
   - spring.ftl wird live gefunden, aber im FreemarkerTest nicht
   - interessant zu wissen wäre, ob man der Freemarker-Config mehrere Pfade für Templates übergeben kann, und wenn ja, in welchem Format

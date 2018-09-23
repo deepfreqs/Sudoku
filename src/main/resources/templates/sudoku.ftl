@@ -108,6 +108,16 @@
 			color: blue;
 			background: #dfac20;
 		}
+		div.above {
+			text-align:center;
+			margin:10%;
+			width:300px;
+			height:50px;
+			border-radius: 10px;
+		  background-color: SKYBLUE;
+			font-size:15px;
+		}
+
 		
     </style>
 </head>
@@ -241,7 +251,7 @@
 			<button class="submit" type="submit" name="action" value="next">Next Step</button>
 			<button class="submit" type="submit" name="action" value="solve">Try to solve!</button>
 			<hr>
-			<button class="submit" type="submit" name="action" value="strategy">Choose strategy</button>
+			<div style="font-size:15px;font-family:arial;">Select the strategy</div>
 			<@spring.bind "sudokuForm.strategy" />
 			<@spring.formSingleSelect "sudokuForm.strategy", strategyList, 'style="text-align:center;border-radius:10px;margin:10%;width:300px;height:50px;background-color:LIGHTBLUE;font-size:15px;"' />
 

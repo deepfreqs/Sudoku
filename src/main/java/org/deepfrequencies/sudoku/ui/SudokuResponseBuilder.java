@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.deepfrequencies.sudoku.Definitions;
 import org.deepfrequencies.sudoku.calculators.AbstractStrategy;
+import org.deepfrequencies.sudoku.calculators.HiddenSinglesStrategy;
 import org.deepfrequencies.sudoku.calculators.JustCalculateOptionsStrategy;
 import org.deepfrequencies.sudoku.calculators.ObviousSinglesStrategy;
 import org.deepfrequencies.sudoku.domain.SudokuPlayground;
@@ -21,6 +22,8 @@ public class SudokuResponseBuilder {
 	JustCalculateOptionsStrategy justCalculateOptionsStrategy;
 	@Resource(name="obviousSinglesStrategy")	
 	ObviousSinglesStrategy obviousSinglesStrategy;
+	@Resource(name="hiddenSinglesStrategy")	
+	HiddenSinglesStrategy hiddenSinglesStrategy;
 
 	public static SudokuResponseBuilder getBuilder() {
 		return new SudokuResponseBuilder();
@@ -33,8 +36,10 @@ public class SudokuResponseBuilder {
 	public SudokuForm takeAStep(SudokuForm sudokuForm) {
 		SudokuPlayground ground = new SudokuPlayground(sudokuForm.exportToString());
 		justCalculateOptionsStrategy.applyStrategy(ground);
+		String playThis = sudokuForm.getPlayThis();
 		sudokuForm = new SudokuForm(ground);
-    	return sudokuForm;
+		sudokuForm.setPlayThis(playThis);
+		return sudokuForm;
 	}
 
 	public SudokuForm loadFromString(String toLoad) {
@@ -47,19 +52,22 @@ public class SudokuResponseBuilder {
 	}
 
 	public SudokuForm tryToSolve(SudokuForm sudokuForm, String strategy) {
+		String playThis = sudokuForm.getPlayThis();
 		SudokuPlayground ground = new SudokuPlayground(sudokuForm.exportToString());
 		SudokuPlayground formerGround = new SudokuPlayground(Definitions.EMPTYPLAYGROUND);
 		int i = 1;
-		while (!ground.isSolved() && ! ground.equals(formerGround)) {
+		while (!ground.isSolved() && ! ground.equals(formerGround) && i < 10000) {
 			formerGround = ground.copy();
 			ground = ground.copy(); //?????? warum? wegen der String-Repräsentaton, ist dann eigentlich noch nicht gut
 			selectStrategy(strategy).applyStrategy(ground);
-			logger.info("playground after obviousSinglesStrategy " + i + " iteration----------\n");
+			logger.info("playground after "+ strategy + " " + i + " iteration----------\n");
 			logger.info(ground.toString());
 			i+=1;
 		}
 		sudokuForm = new SudokuForm(ground);
-    	return sudokuForm;
+		sudokuForm.setPlayThis(playThis);
+		sudokuForm.setStrategy(strategy);
+		return sudokuForm;
 	}
 
 	public Map<String,Object> createModelMap() {
@@ -72,7 +80,6 @@ public class SudokuResponseBuilder {
 	}
 	
 	AbstractStrategy selectStrategy(String strategy) {
-		return obviousSinglesStrategy;
-		//strategyList.forEach(r....strategy.equals(classname...
+		return strategy.equals("HiddenSinglesStrategy") ? hiddenSinglesStrategy : obviousSinglesStrategy;
 	}
 }

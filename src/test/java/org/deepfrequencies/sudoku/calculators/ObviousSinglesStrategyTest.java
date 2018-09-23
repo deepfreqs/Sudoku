@@ -25,14 +25,4 @@ public class ObviousSinglesStrategyTest extends TestCase{
 		testSubject = createTestSubject();
 		testSubject.applyStrategy(applyTo);
 	}
-
-	@Test
-	public void testApplyStrategyDeprecated() throws Exception {
-		ObviousSinglesStrategy testSubject;
-		SudokuPlayground applyTo = new SudokuPlayground(Definitions.EMPTYPLAYGROUND);
-
-		// default test
-		testSubject = createTestSubject();
-		testSubject.applyStrategyDeprecated(applyTo);
-	}
 }

@@ -1,12 +1,5 @@
 package org.deepfrequencies.sudoku.calculators;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.deepfrequencies.sudoku.domain.SudokuCell;
 import org.deepfrequencies.sudoku.domain.SudokuPlayground;
 
 /**
@@ -15,7 +8,7 @@ import org.deepfrequencies.sudoku.domain.SudokuPlayground;
  * 
  * @author markus
  */
-public class ObviousSinglesStrategy extends AbstractStrategy {
+public class HiddenSinglesStrategy extends AbstractStrategy {
 
 	/**
 	 * For every cell for every option check if the touched row / column / sector 
@@ -30,6 +23,7 @@ public class ObviousSinglesStrategy extends AbstractStrategy {
 	public void applyStrategy(SudokuPlayground applyTo) {
 		applyTo.clearOptions();
 		applyTo.calculateOptions();
-		applyTo.setSingleOptionsAsValues();
+		applyTo.setHiddenSinglesAsValues();
 	}
+
 }

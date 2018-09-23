@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.deepfrequencies.sudoku.calculators.JustCalculateOptionsStrategy;
 import org.deepfrequencies.sudoku.calculators.ObviousSinglesStrategy;
+import org.deepfrequencies.sudoku.calculators.HiddenSinglesStrategy;
 import org.deepfrequencies.sudoku.ui.SudokuResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,5 +56,10 @@ public class Application {
 	@Bean(name="justCalculateOptionsStrategy")
 	JustCalculateOptionsStrategy justCalculateOptionsStrategy() {
 		return new JustCalculateOptionsStrategy();
+	}
+
+	@Bean(name="hiddenSinglesStrategy")
+	HiddenSinglesStrategy HiddenSinglesStrategy() {
+		return new HiddenSinglesStrategy();
 	}
 }

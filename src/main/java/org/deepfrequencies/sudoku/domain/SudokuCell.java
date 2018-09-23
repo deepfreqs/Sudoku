@@ -91,6 +91,10 @@ public class SudokuCell {
 	public void setSector(List<SudokuCell> sector) {
 		this.sector = sector;
 	}
+	
+	public String toString() {
+		return Integer.toString(getValue());
+	}
 
 	@Override
 	public int hashCode() {

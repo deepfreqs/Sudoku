@@ -154,7 +154,6 @@ public class SudokuSquare {
 		if (index == 1)
 			return (nulls.get("a1")?"0":a1) + (nulls.get("b1")?"0":b1) + (nulls.get("c1")?"0":c1);
 		if (index == 2)
-			//return a2+b2+c2;
 			return (nulls.get("a2")?"0":a2) + (nulls.get("b2")?"0":b2) + (nulls.get("c2")?"0":c2);
 		if (index == 3)
 			return (nulls.get("a3")?"0":a3) + (nulls.get("b3")?"0":b3) + (nulls.get("c3")?"0":c3);
@@ -200,59 +199,7 @@ public class SudokuSquare {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		// here we should take care of null values
-		return true;
-		/*
-		SudokuSquare other = (SudokuSquare) obj;
-		if (a1 == null) {
-			if (other.a1 != null)
-				return false;
-		} else if (!a1.equals(other.a1))
-			return false;
-		if (a2 == null) {
-			if (other.a2 != null)
-				return false;
-		} else if (!a2.equals(other.a2))
-			return false;
-		if (a3 == null) {
-			if (other.a3 != null)
-				return false;
-		} else if (!a3.equals(other.a3))
-			return false;
-		if (b1 == null) {
-			if (other.b1 != null)
-				return false;
-		} else if (!b1.equals(other.b1))
-			return false;
-		if (b2 == null) {
-			if (other.b2 != null)
-				return false;
-		} else if (!b2.equals(other.b2))
-			return false;
-		if (b3 == null) {
-			if (other.b3 != null)
-				return false;
-		} else if (!b3.equals(other.b3))
-			return false;
-		if (c1 == null) {
-			if (other.c1 != null)
-				return false;
-		} else if (!c1.equals(other.c1))
-			return false;
-		if (c2 == null) {
-			if (other.c2 != null)
-				return false;
-		} else if (!c2.equals(other.c2))
-			return false;
-		if (c3 == null) {
-			if (other.c3 != null)
-				return false;
-		} else if (!c3.equals(other.c3))
-			return false;
-		return true;
-		*/
+		return getClass() != obj.getClass() ? false : true;
 	}
 	
 	

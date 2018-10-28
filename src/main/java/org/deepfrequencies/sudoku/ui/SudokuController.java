@@ -57,7 +57,7 @@ public class SudokuController {
     }
     
 	Map<String,String> getListOfSudokus() {
-		Map<String,String> sudokuList = new LinkedHashMap<String,String>();
+		Map<String,String> sudokuList = new LinkedHashMap<>();
 		sudokuList.put("", "");
 		sudokuList.put("000079065000003002005060093340050106000000000608020059950010600700600000820390000", "easy peasy");
 		sudokuList.put("300401076602500040000006210500000180700010002021000007054300000090004608830109004", "test piece");
@@ -67,7 +67,7 @@ public class SudokuController {
 	}
 
 	Map<String,String> getListOfStrategies() {
-		Map<String,String> list = new LinkedHashMap<String,String>();
+		Map<String,String> list = new LinkedHashMap<>();
 		list.put("ObviousSinglesStrategy", "set obvious singles as values");
 		list.put("HiddenSinglesStrategy", "set hidden singles as values");
 		return list;

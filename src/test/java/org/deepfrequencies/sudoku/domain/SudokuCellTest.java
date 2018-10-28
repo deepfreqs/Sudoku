@@ -10,7 +10,7 @@ import junit.framework.TestCase;
 public class SudokuCellTest extends TestCase{
 
 	private SudokuCell createTestSubject() {
-		return new SudokuCell(5);
+		return new SudokuCell(new Location(1,1),5);
 	}
 
 	@Test

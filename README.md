@@ -53,6 +53,7 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 
 - steckt im Package Domain
 - Die Klasse SudokuPlayground enthält eine 9x9 Matrix der Zellen.
+- X wächst nach links, Y nach unten!!!
 - SudokuCell weiß, in welche Zeile / Spalte / Sektor sie gehört.
 
 # ToDos
@@ -67,6 +68,24 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 - debug level per JMX  XXX erledigt per SpringBootAdmin
 - Persistenz
 
+# 27.10.2018
+- Die Abweichung zwischen UI und Backend zeigt auf ein tieferes Problem: durch die
+	iterative "flache" Berechnung auf dem ganzen Playground erwischt man nicht die Änderungen
+	an den Zellen, die schon durch die Iteration sind. Also geht das ganze tatsächlich nur 
+	rekursiv richtig.
+	Und das funktioniert tatsächlich => SudokuCell.setHiddenSinglesAsValues
+	Wenn man "hoddel" mit "obvious" und "hidden" versucht zu lösen, sieht man, daß "hidden"
+	weiter kommt.
+
+# 21.10.2018
+- hidden single strategy läuft noch nicht von allein durch XXXX erledigt
+- Fehler in toString? console zeigt immer nur den Original-Zustand
+	- Das ist nicht der Original-Zustand, sondern der des Backends; und beim calculateOptions
+		wird für Zellen auch mal nur 1 Option ermittelt (aber der value ist noch 0), 
+		und die wird IN DER UI zu einem Value!!
+- Fehler in sectorValues, enthält 0en XXXXX erledigt
+- Zelle braucht die Position! das ist die Identität des domain objects!
+- UI gerundet
 
 # 23.09.2018
 - hidden single strategy läuft noch nicht von allein durch => debuggen

@@ -22,6 +22,7 @@ public class SudokuPlaygroundTest extends TestCase {
 		// default test
 		testSubject = createTestSubject();
 		result = testSubject.getCells();
+		assertTrue(result.size() != 0);
 	}
 
 	@Test

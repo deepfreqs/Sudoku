@@ -59,7 +59,7 @@ public class Application {
 	}
 
 	@Bean(name="hiddenSinglesStrategy")
-	HiddenSinglesStrategy HiddenSinglesStrategy() {
+	HiddenSinglesStrategy hiddenSinglesStrategy() {
 		return new HiddenSinglesStrategy();
 	}
 }

@@ -1,11 +1,7 @@
 package org.deepfrequencies.sudoku.calculators;
 
-import static org.junit.Assert.*;
-import java.util.*;
-
 import org.deepfrequencies.sudoku.Definitions;
 import org.deepfrequencies.sudoku.domain.SudokuPlayground;
-import org.junit.Assert;
 import org.junit.Test;
 
 import junit.framework.TestCase;

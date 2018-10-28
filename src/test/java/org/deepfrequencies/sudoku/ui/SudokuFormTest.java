@@ -22,6 +22,7 @@ public class SudokuFormTest extends TestCase{
 		// default test
 		testSubject = createTestSubject();
 		result = testSubject.removeNullValues();
+		assertNotNull(result);
 	}
 
 	@Test

@@ -1,12 +1,5 @@
 package org.deepfrequencies.sudoku.calculators;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.deepfrequencies.sudoku.domain.SudokuCell;
 import org.deepfrequencies.sudoku.domain.SudokuPlayground;
 
 /**

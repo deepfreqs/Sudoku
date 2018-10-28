@@ -18,7 +18,6 @@ public class HiddenSinglesStrategy extends AbstractStrategy {
 	 * 
 	 * @param applyTo The playground on which the strategy is applied.
 	 */
-	SudokuPlayground ground;
 	@Override
 	public void applyStrategy(SudokuPlayground applyTo) {
 		applyTo.clearOptions();

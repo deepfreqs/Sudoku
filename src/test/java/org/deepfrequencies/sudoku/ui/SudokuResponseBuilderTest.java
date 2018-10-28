@@ -1,7 +1,5 @@
 package org.deepfrequencies.sudoku.ui;
 
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.deepfrequencies.sudoku.Application;

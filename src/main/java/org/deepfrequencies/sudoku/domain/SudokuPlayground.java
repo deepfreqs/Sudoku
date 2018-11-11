@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -28,7 +29,8 @@ public class SudokuPlayground implements Cloneable {
 	}
 
 	public boolean isSolved() {
-		return getCells().stream().filter(cell -> cell.getValue() == 0).collect(Collectors.counting()) == 0 ? true : false;
+		return getCells().stream().filter(cell -> cell.getValue() == 0).collect(Collectors.counting()) == 0 ? true
+				: false;
 	}
 
 	public SudokuPlayground(String toLoad) {
@@ -71,29 +73,14 @@ public class SudokuPlayground implements Cloneable {
 
 	private void initCells() {
 		for (Map.Entry<Location, SudokuCell> e : cellMap.entrySet()) {
-			// set the cells in the column / row WITHOUT self
-			e.getValue().setColumn(cellMap.keySet().stream().filter(p -> !p.equals(e.getKey()) && p.j == e.getKey().j)
-					.map(cellMap::get).collect(Collectors.toList()));
-			e.getValue().setRow(cellMap.keySet().stream().filter(p -> !p.equals(e.getKey()) && p.i == e.getKey().i)
-					.map(k -> cellMap.get(k)).collect(Collectors.toList()));
-			// set ALL values excluding zeros
-			e.getValue().setColumnValues(
-					cellMap.keySet().stream().filter(p -> p.j == e.getKey().j && cellMap.get(p).getValue() != 0)
-							.map(k -> cellMap.get(k).getValue()).collect(Collectors.toList()));
-			e.getValue().setRowValues(
-					cellMap.keySet().stream().filter(p -> p.i == e.getKey().i && cellMap.get(p).getValue() != 0)
-							.map(k -> cellMap.get(k).getValue()).collect(Collectors.toList()));
-			// put the cells of the sector in the cell WITHOUT self
-			e.getValue()
-					.setSector(sectorMap.get(new Location((e.getKey().i - 1) / 3 + 1, (e.getKey().j - 1) / 3 + 1))
-							.entrySet().stream().filter(ee -> ee.getKey() != e.getKey()).map(eee -> eee.getValue())
-							.collect(Collectors.toList()));
-			// put the cells of the sector in the cell WITHOUT self
-			e.getValue()
-					.setSectorValues(sectorMap.get(new Location((e.getKey().i - 1) / 3 + 1, (e.getKey().j - 1) / 3 + 1))
-							.entrySet().stream()
-							.filter(ee -> ee.getKey() != e.getKey() && ee.getValue().getValue() != 0)
-							.map(eee -> eee.getValue()).map(c -> c.getValue()).collect(Collectors.toList()));
+			// set the cells in the column / row including self
+			e.getValue().setColumn(cellMap.keySet().stream().filter(p -> p.j == e.getKey().j).map(cellMap::get)
+					.collect(Collectors.toList()));
+			e.getValue().setRow(cellMap.keySet().stream().filter(p -> p.i == e.getKey().i).map(k -> cellMap.get(k))
+					.collect(Collectors.toList()));
+			// put the cells of the sector in the cell including self
+			e.getValue().setSector(sectorMap.get(new Location((e.getKey().i - 1) / 3 + 1, (e.getKey().j - 1) / 3 + 1))
+					.entrySet().stream().map(Entry<Location, SudokuCell>::getValue).collect(Collectors.toList()));
 		}
 	}
 
@@ -165,7 +152,7 @@ public class SudokuPlayground implements Cloneable {
 	}
 
 	public void setSingleOptionsAsValues() {
-		getCells().forEach(SudokuCell::setSingleOptionAsValues);
+		getCells().forEach(SudokuCell::setSingleOptionAsValue);
 	}
 
 	public void setHiddenSinglesAsValues() {

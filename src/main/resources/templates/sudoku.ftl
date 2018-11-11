@@ -128,9 +128,9 @@
 	<div id="header">
 		<h2 text-align="center" class="hello-title">Hello first Sudoku!</h2>
 		You can play Sudoku in different ways: just edit a game, import one, for instance from 
-		http://forum.enjoysudoku.com/patterns-game-results-t6291.html, or load one from the list. 
+		<a href="http://forum.enjoysudoku.com/patterns-game-results-t6291.html">enjoysudoku</a>, or load one from the list. 
 		Storing Your game is currently not supported. With "next step", the site recalculates the playground. 
-		With "Try to Solve", currently only a simple strategy tries to solve the playground. Thats it right now!
+		With "Try to Solve", You can use strategies to solve the playground. Currently, there are two strategies implemented. Thats it right now!
 		<br>
 		Comments etc.: <a href="mailto:deepfreqs@quantentunnel.de">Deep Frequencies</a>, 
 	</div>

@@ -60,67 +60,69 @@ public class SudokuCellTest extends TestCase{
 	@Test
 	public void testGetColumn() throws Exception {
 		SudokuCell testSubject;
-		List<Integer> result;
+		List<SudokuCell> result;
 		// default test
 		testSubject = createTestSubject();
-		result = testSubject.getColumnValues();
+		result = testSubject.getColumn();
 		assertNotNull(result);
 	}
 
 	@Test
 	public void testSetColumn() throws Exception {
 		SudokuCell testSubject;
-		List<Integer> result = new ArrayList<>();
+		List<SudokuCell> result = new ArrayList<>();
 		// default test
 		testSubject = createTestSubject();
-		testSubject.setColumnValues(result);
-		result = testSubject.getColumnValues();
-		assertNotNull(result);
+		testSubject.setColumn(result);
+		assertNotNull(testSubject.getColumn());
+		assertNotNull(testSubject.getColumnValues());
 	}
 
 	@Test
 	public void testGetRow() throws Exception {
 		SudokuCell testSubject;
-		List<Integer> result;
+		List<SudokuCell> result;
 
 		// default test
 		testSubject = createTestSubject();
-		result = testSubject.getRowValues();
+		result = testSubject.getRow();
 		assertNotNull(result);
 	}
 
 	@Test
 	public void testSetRow() throws Exception {
 		SudokuCell testSubject;
-		List<Integer> result = new ArrayList<>();
+		List<SudokuCell> result = new ArrayList<>();
 
 		// default test
 		testSubject = createTestSubject();
-		testSubject.setRowValues(result);
-		result = testSubject.getRowValues();
+		testSubject.setRow(result);
+		assertNotNull(testSubject.getRow());
+		assertNotNull(testSubject.getRowValues());
 		assertNotNull(result);
 	}
 
 	@Test
 	public void testGetSector() throws Exception {
 		SudokuCell testSubject;
-		List<Integer> result;
+		List<SudokuCell> result;
 
 		// default test
 		testSubject = createTestSubject();
-		result = testSubject.getSectorValues();
+		result = testSubject.getSector();
 		assertNotNull(result);
 	}
 
 	@Test
 	public void testSetSector() throws Exception {
 		SudokuCell testSubject;
-		List<Integer> result = new ArrayList<>();
+		List<SudokuCell> result = new ArrayList<>();
 
 		// default test
 		testSubject = createTestSubject();
-		testSubject.setSectorValues(result);
-		result = testSubject.getSectorValues();
+		testSubject.setSector(result);
+		assertNotNull(testSubject.getSector());
+		assertNotNull(testSubject.getSectorValues());
 		assertNotNull(result);
 	}
 }

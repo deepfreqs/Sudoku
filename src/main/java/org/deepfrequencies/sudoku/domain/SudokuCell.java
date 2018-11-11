@@ -1,12 +1,14 @@
 package org.deepfrequencies.sudoku.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -17,9 +19,6 @@ public class SudokuCell {
 	int value;
 	Location location;
 	List<Integer> options = new ArrayList<>();
-	List<Integer> columnValues = new ArrayList<>();
-	List<Integer> rowValues = new ArrayList<>();
-	List<Integer> sectorValues = new ArrayList<>();
 
 	List<SudokuCell> row = new ArrayList<>();
 	List<SudokuCell> column = new ArrayList<>();
@@ -71,46 +70,57 @@ public class SudokuCell {
 		sector.forEach(cell -> cell.getOptions().remove(Integer.valueOf(value)));
 	}
 
-	public void setSingleOptionAsValues() {
+	public void setSingleOptionAsValue() {
 		if (getOptions().size() == 1) {
 			setValue(getOptions().get(0));
 		}
 	}
 
 	/*
-	 * count occurences of a number in an aggregation of all values from row,
-	 * column, sector of a cell if a number occurs only once, it is a hidden single
+	 * count occurences of a number in an aggregation of the values from row OR
+	 * column OR sector of a cell 
+	 * if a number occurs only once, it is a hidden single
 	 */
 	public void setHiddenSinglesAsValues() {
-		if (getValue() != 0)
-			return;
+		//strange that i have to call this here, and in the playground strategy method
+		//dont understand; suppose it needs just an init
 		clearOptions();
 		calculateOptions();
-		setSingleOptionAsValues();
-		List<Integer> o = new ArrayList<>();
-		getColumn().stream().filter(colCell -> colCell.getValue() == 0).map(SudokuCell::getOptions)
-				.forEach(o::addAll);
-		getRow().stream().filter(rowCell -> rowCell.getValue() == 0).map(SudokuCell::getOptions)
-				.forEach(o::addAll);
-		getSector().stream().filter(secCell -> secCell.getValue() == 0).map(SudokuCell::getOptions)
-				.forEach(o::addAll);
-		Map<Integer, Long> m = o.stream()
+		setSingleOptionAsValue();
+		if (getValue() != 0)
+			return;
+		Optional<Integer> newValue = searchContainerForHiddenSingles(getColumn());
+		if (!newValue.isPresent())
+			newValue = searchContainerForHiddenSingles(getRow());
+		if (!newValue.isPresent())
+			newValue = searchContainerForHiddenSingles(getSector());
+		if (newValue.isPresent()) {
+			int oldValue = getValue();
+			logger.debug("SudokuPlayground: setHiddenSinglesAsValues: old = " + oldValue + ", newValue = " + newValue);
+			setValue(newValue.get());
+			//this.getUniquedNeighbourhood().forEach(SudokuCell::setHiddenSinglesAsValues);
+		}
+		logger.debug("SudokuPlayground: " + this.toString());
+	}
+
+	private Optional<Integer> searchContainerForHiddenSingles(List<SudokuCell> cellList) {
+		List<Integer> optionsOfContainer = new ArrayList<>();
+		cellList.stream().filter(colCell -> colCell.getValue() == 0).map(SudokuCell::getOptions)
+				.forEach(optionsOfContainer::addAll);
+		Map<Integer, Long> m = optionsOfContainer.stream()
 				.collect(Collectors.groupingBy(Integer::intValue, Collectors.counting()));
 		logger.debug("SudokuPlayground: setHiddenSinglesAsValues: map of aggregation " + m.toString());
 		List<Integer> li = m.entrySet().stream().filter(e -> e.getValue() == 1).map(Entry::getKey)
 				.collect(Collectors.toList());
 		logger.debug("SudokuPlayground: setHiddenSinglesAsValues: list of open values" + li.toString());
-		if (li.size() == 1 && getOptions().contains(li.get(0))) {
-			Integer newValue = li.get(0);
-			int oldValue = getValue();
-			logger.debug("SudokuPlayground: setHiddenSinglesAsValues: old = " + oldValue + ", newValue = " + newValue);
-
-			setValue(li.get(0));
-			this.getUniquedNeighbourhood().forEach(SudokuCell::setHiddenSinglesAsValues);
-		}
-		logger.debug("SudokuPlayground: " + this.toString());
+		if (li.size() == 1 && getOptions().contains(li.get(0)))
+			return Optional.of(li.get(0));
+		else
+			return Optional.empty();
 	}
 
+	//designed for recursive approach, not needed currently
+	@Deprecated
 	private Collection<SudokuCell> getUniquedNeighbourhood() {
 		Map<SudokuCell, Integer> uniquedNeighbourhood = new HashMap<>();
 		getColumn().forEach(cell -> uniquedNeighbourhood.put(cell, cell.getValue()));
@@ -120,27 +130,15 @@ public class SudokuCell {
 	}
 
 	public List<Integer> getColumnValues() {
-		return columnValues;
-	}
-
-	public void setColumnValues(List<Integer> columnValues) {
-		this.columnValues = columnValues;
+		return column.stream().filter(p -> p.getValue() != 0).map(SudokuCell::getValue).collect(Collectors.toList());
 	}
 
 	public List<Integer> getRowValues() {
-		return rowValues;
-	}
-
-	public void setRowValues(List<Integer> rowValues) {
-		this.rowValues = rowValues;
+		return row.stream().filter(p -> p.getValue() != 0).map(SudokuCell::getValue).collect(Collectors.toList());
 	}
 
 	public List<Integer> getSectorValues() {
-		return sectorValues;
-	}
-
-	public void setSectorValues(List<Integer> sectorValues) {
-		this.sectorValues = sectorValues;
+		return sector.stream().filter(p -> p.getValue() != 0).map(SudokuCell::getValue).collect(Collectors.toList());
 	}
 
 	public List<SudokuCell> getRow() {
@@ -168,7 +166,7 @@ public class SudokuCell {
 	}
 
 	public String toString() {
-		return "i: " + location.i + ", j: " + location.j + "value: " + Integer.toString(getValue());
+		return "i: " + location.i + ", j: " + location.j + ", value: " + Integer.toString(getValue());
 	}
 
 	@Override

@@ -56,17 +56,29 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 - X wächst nach links, Y nach unten!!!
 - SudokuCell weiß, in welche Zeile / Spalte / Sektor sie gehört.
 
-# ToDos
-- Hidden Singles als Strategie implementieren, s.u.
-- Playground constructor refactoring ??? keine richtige Idee XXXX erledigt
-- calculators package Testabdeckung XXXX erledigt
-- Strategie-Auswahl am Client  XXXX erledigt
-- "Gelöst"-Zustand erkennen und signalisieren XXXX erledigt
+# Größere Projekte
 - Android App
 - Docker
 - Constraint Programming für die vollständige und direkte Lösung eines Sudoku
 - debug level per JMX  XXX erledigt per SpringBootAdmin
 - Persistenz
+
+# ToDos
+- Hidden Singles als Strategie implementieren, XXXX erledigt
+- Playground constructor refactoring ??? keine richtige Idee XXXX erledigt
+- calculators package Testabdeckung XXXX erledigt
+- Strategie-Auswahl am Client  XXXX erledigt
+- "Gelöst"-Zustand erkennen und signalisieren XXXX erledigt
+- debug level per JMX  XXX erledigt per SpringBootAdmin
+- Strategien nebeneinander in der UI anbieten, nicht nur eine für ein Spiel
+
+# 11.11.2018
+- Rekursiv war doch nicht die Lösung, die Werte in der Nachbarschaft einer Zelle waren bislang
+	statisch, die müssen aber in jedem Schritt aktualisiert werden
+- Das Prisma 4.11. kann tatsächlich nur mit der BUG strategie gelöst werden, die nicht mehr
+	intuitiv ist
+- Komisch ist, daß die Aktionen clear / calc / single sowohl in jeder Iteration im ResponseBuilder,
+	als auch in SudokuCell ausgeführt werden müssen, sonst kommt es immer zu Fehler mit den Options. 
 
 # 27.10.2018
 - Die Abweichung zwischen UI und Backend zeigt auf ein tieferes Problem: durch die

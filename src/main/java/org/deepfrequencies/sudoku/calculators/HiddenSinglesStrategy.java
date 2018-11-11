@@ -22,6 +22,7 @@ public class HiddenSinglesStrategy extends AbstractStrategy {
 	public void applyStrategy(SudokuPlayground applyTo) {
 		applyTo.clearOptions();
 		applyTo.calculateOptions();
+		applyTo.setSingleOptionsAsValues();
 		applyTo.setHiddenSinglesAsValues();
 	}
 

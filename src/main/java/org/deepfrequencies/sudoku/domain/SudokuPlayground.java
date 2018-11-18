@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * @author markus
  *
  */
-public class SudokuPlayground implements Cloneable {
+public class SudokuPlayground {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

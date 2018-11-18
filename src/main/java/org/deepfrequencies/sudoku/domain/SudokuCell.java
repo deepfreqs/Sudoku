@@ -119,7 +119,11 @@ public class SudokuCell {
 			return Optional.empty();
 	}
 
-	//designed for recursive approach, not needed currently
+	/**
+	 * designed for recursive approach, not needed currently
+	 * @return All the cells with determine the options of the current cell
+	 * @deprecated no replacement needed
+	 */
 	@Deprecated
 	private Collection<SudokuCell> getUniquedNeighbourhood() {
 		Map<SudokuCell, Integer> uniquedNeighbourhood = new HashMap<>();

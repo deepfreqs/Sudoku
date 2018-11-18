@@ -60,7 +60,6 @@ a3 b3 c3  a3 b3 c3  a3 b3 c3
 - Android App
 - Docker
 - Constraint Programming für die vollständige und direkte Lösung eines Sudoku
-- debug level per JMX  XXX erledigt per SpringBootAdmin
 - Persistenz
 
 # ToDos

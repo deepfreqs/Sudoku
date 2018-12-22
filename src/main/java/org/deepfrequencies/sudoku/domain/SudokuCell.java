@@ -98,6 +98,7 @@ public class SudokuCell {
 			int oldValue = getValue();
 			logger.debug("SudokuPlayground: setHiddenSinglesAsValues: old = " + oldValue + ", newValue = " + newValue);
 			setValue(newValue.get());
+			//recursive trial, did not work out
 			//this.getUniquedNeighbourhood().forEach(SudokuCell::setHiddenSinglesAsValues);
 		}
 		logger.debug("SudokuPlayground: " + this.toString());
